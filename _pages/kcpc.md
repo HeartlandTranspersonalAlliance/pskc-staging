@@ -56,7 +56,7 @@ gallery3:
 
 #### Special Thanks
 {: .text-center}
-We would like to extend our sincerest graditudes for those who are sponsoring KCPC and making this possible
+We would like to extend our sincerest gratitude to those who are sponsoring KCPC and making this possible
 {: .text-center}
 
 ##### Visionary Sponsor

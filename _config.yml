@@ -16,7 +16,7 @@
 title: Psychedelic Society of Kansas City
 email: info@psychedelickc.org
 description: >- # this means to ignore newlines until "baseurl:"
-  The Psychedelic Society of Kansas City is a social and educational community hub that discusses the intersection of psychedelics in art, culture, and medicine.
+    The Psychedelic Society of Kansas City is a social and educational community hub that discusses the intersection of psychedelics in art, culture, and medicine.
 # twitter_username: username
 github_username: psychedelicsocietyofkansascity
 minimal_mistakes_skin: dark
@@ -31,10 +31,10 @@ paginate: 5 # amount of posts to show
 paginate_path: /page:num/
 timezone: "America/Chicago"
 navigation:
-  - scope: all
-    data: navigation.yml main
+    - scope: all
+      data: navigation.yml main
 include:
-  - _pages
+    - _pages
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
@@ -50,66 +50,84 @@ include:
 
 # Plugins (previously gems:)
 plugins:
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-gist
-  - jekyll-feed
-  - jemoji
-  - jekyll-include-cache
+    - jekyll-paginate
+    - jekyll-sitemap
+    - jekyll-gist
+    - jekyll-feed
+    - jemoji
+    - jekyll-include-cache
 
 author:
-  name   : "Psychedelic Society of Kansas City"
-  avatar : "/assets/images/bio-photo.jpg"
-  bio    : "My awesome biography constrained to a sentence or two goes here."
-  links:
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      url: "https://"
-#    - label: "Twitter"
-#      icon: "fab fa-fw fa-twitter-square"
-#      url: "https://twitter.com/"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+    name: "Psychedelic Society of Kansas City"
+    avatar: "/assets/images/bio-photo.jpg"
+    bio: "My awesome biography constrained to a sentence or two goes here."
+    links:
+        - label: "Website"
+          icon: "fas fa-fw fa-link"
+          url: "https://psychedelickc.org"
+        - label: "Discord"
+          icon: "fab fa-fw fa-discord"
+          url: "https://discord.gg/ds5NYqqBKU"
+        - label: "Instagram"
+          icon: "fab fa-fw fa-instagram"
+          url: "https://instagram.com/psychedelicsocietyofkansascity"
+        - label: "Facebook"
+          icon: "fab fa-fw fa-facebook"
+          url: "https://facebook.com/psychedelicsocietyofkansascity"
+        - label: "Bluesky"
+          icon: "fab fa-fw fa-bluesky"
+          url: "https://bsky.app/profile/psychedelickc.org"
+        - label: "Patreon"
+          icon: "fab fa-fw fa-patreon"
+          url: "https://www.patreon.com/c/PSKC"
+        - label: "GitHub"
+          icon: "fab fa-fw fa-github"
+          url: "https://github.com/HeartlandTranspersonalAlliance/pskc-site"
 
 footer:
-  links:
-   # - label: "Twitter"
-   #   icon: "fab fa-fw fa-twitter-square"
-   #   url: "https://twitter.com/"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+    links:
+        - label: "Discord"
+          icon: "fab fa-fw fa-discord"
+          url: "https://discord.gg/ds5NYqqBKU"
+        - label: "Instagram"
+          icon: "fab fa-fw fa-instagram"
+          url: "https://instagram.com/psychedelicsocietyofkansascity"
+        - label: "Facebook"
+          icon: "fab fa-fw fa-facebook"
+          url: "https://facebook.com/psychedelicsocietyofkansascity"
+        - label: "Bluesky"
+          icon: "fab fa-fw fa-bluesky"
+          url: "https://bsky.app/profile/psychedelickc.org"
+        - label: "Patreon"
+          icon: "fab fa-fw fa-patreon"
+          url: "https://www.patreon.com/c/PSKC"
+        - label: "GitHub"
+          icon: "fab fa-fw fa-github"
+          url: "https://github.com/HeartlandTranspersonalAlliance/pskc-site"
 
 defaults:
-  # _posts
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: false
-      read_time: true
-      comments: false
-      share: true
-      related: true
-  # _pages
-  - scope:
-      path: "_pages"
-      type: pages
-    values:
-      layout: single
-      author_profile: false
+    # _posts
+    - scope:
+          path: ""
+          type: posts
+      values:
+          layout: single
+          author_profile: false
+          read_time: true
+          comments: false
+          share: true
+          related: true
+    # _pages
+    - scope:
+          path: "_pages"
+          type: pages
+      values:
+          layout: single
+          author_profile: false
 
 category_archive:
-  type: liquid
-  path: /categories/
+    type: liquid
+    path: /categories/
 tag_archive:
-  type: liquid
-  path: /tags/
+    type: liquid
+    path: /tags/

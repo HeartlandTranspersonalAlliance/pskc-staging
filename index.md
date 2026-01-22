@@ -1,16 +1,19 @@
 ---
 layout: splash 
 permalink: /
-title: "We're Presenting A Conference!"
-excerpt: "Come join us this November 15th for the Kansas City Psychedelic Conference. We'll be featuring a variety of keynote speakers, panels, and interactive workshops."
+title: "Welcome to the Psychedelic Society of Kansas City"
+excerpt: "A community-driven organization fostering education, dialogue, and connection around the transformative potential of psychedelics."
 header:
   overlay_color: "#000"
   overlay_filter: "0.25"
   overlay_image: /assets/images/kcpcbanner.jpg
   actions:
-    - label: "Learn More"
-      url: "/kcpc/"
+    - label: "Join Our Discord"
+      url: "https://discord.gg/ds5NYqqBKU"
       class: "btn btn--primary"
+    - label: "Subscribe to Newsletter"
+      url: "https://lu.ma/pskc"
+      class: "btn btn--inverse"
 ---
 We believe in fostering thoughtful conversations and connections around these emerging fields while advocating for informed, responsible use and supporting efforts to expand awareness and access.
 
