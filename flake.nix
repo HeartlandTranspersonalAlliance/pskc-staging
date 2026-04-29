@@ -70,33 +70,28 @@
             ];
 
             shellHook = ''
-              preview_host="''${PSKC_HOST:-0.0.0.0}"
               preview_port="''${PSKC_PORT:-8080}"
+              preview_auto="''${PSKC_AUTO_PREVIEW:-1}"
 
               echo "PSKC Astro shell"
               echo "  npm run dev          # Astro dev server"
               echo "  npm run build        # Build static dist/"
-              echo "  pskc-lan-preview     # Build and serve dist/ over LAN with nginx"
+              echo "  pskc-lan-preview     # Foreground nginx preview"
+              echo "  pskc-lan-preview --stop"
               echo
-              echo "PSKC LAN preview"
-              echo "  Start:  pskc-lan-preview"
-              echo "  Local:  http://127.0.0.1:$preview_port/"
-              echo "  Listen: http://$preview_host:$preview_port/"
 
-              if command -v ip >/dev/null 2>&1; then
-                preview_addresses="$(
-                  ip -o -4 addr show scope global 2>/dev/null |
-                    awk '{ split($4, address, "/"); print address[1] }' || true
-                )"
-
-                while read -r preview_address; do
-                  if [ -n "$preview_address" ]; then
-                    echo "  LAN:    http://$preview_address:$preview_port/"
-                  fi
-                done <<< "$preview_addresses"
+              if [ "$preview_auto" = "1" ]; then
+                echo "PSKC LAN preview auto-start"
+                echo "  Serving existing dist/ on port $preview_port"
+                PSKC_BUILD="''${PSKC_AUTO_BUILD:-0}" pskc-lan-preview --daemon || {
+                  echo "  Preview did not start. Run npm run build, then pskc-lan-preview --daemon."
+                }
+              else
+                echo "PSKC LAN preview"
+                echo "  Auto-start disabled by PSKC_AUTO_PREVIEW=0"
+                echo "  Start:  pskc-lan-preview --daemon"
+                echo "  Local:  http://127.0.0.1:$preview_port/"
               fi
-
-              echo "  Port:   PSKC_PORT=$preview_port"
             '';
           };
         }

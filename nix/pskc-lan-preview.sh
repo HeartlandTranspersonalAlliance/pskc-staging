@@ -7,6 +7,9 @@ Build and serve the generated PSKC Astro site over the local network with nginx.
 
 Usage:
   pskc-lan-preview
+  pskc-lan-preview --daemon
+  pskc-lan-preview --status
+  pskc-lan-preview --stop
 
 Environment:
   PSKC_HOST=0.0.0.0   Address nginx listens on.
@@ -16,17 +19,43 @@ Environment:
 
 Examples:
   pskc-lan-preview
+  pskc-lan-preview --daemon
+  pskc-lan-preview --status
+  pskc-lan-preview --stop
   PSKC_PORT=8081 pskc-lan-preview
   PSKC_BUILD=0 pskc-lan-preview
 USAGE
 }
 
-if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
-  usage
-  exit 0
-fi
+mode="foreground"
+case "${1:-}" in
+  "")
+    mode="foreground"
+    ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  --daemon | --start | start)
+    mode="daemon"
+    ;;
+  --foreground | serve)
+    mode="foreground"
+    ;;
+  --status | status)
+    mode="status"
+    ;;
+  --stop | stop)
+    mode="stop"
+    ;;
+  *)
+    echo "error: unknown argument: $1" >&2
+    usage >&2
+    exit 2
+    ;;
+esac
 
-site_root="${PSKC_SITE_ROOT:-$PWD}"
+site_root="$(cd "${PSKC_SITE_ROOT:-$PWD}" && pwd)"
 host="${PSKC_HOST:-0.0.0.0}"
 port="${PSKC_PORT:-8080}"
 build="${PSKC_BUILD:-1}"
@@ -43,22 +72,6 @@ if [[ "$port" =~ [^0-9] || "$port" -lt 1024 || "$port" -gt 65535 ]]; then
   exit 1
 fi
 
-if [[ "$build" != "0" ]]; then
-  if [[ ! -d "$site_root/node_modules" ]]; then
-    echo "node_modules not found; installing dependencies with npm ci..."
-    (cd "$site_root" && npm ci)
-  fi
-
-  echo "Building Astro site..."
-  (cd "$site_root" && npm run build)
-fi
-
-if [[ ! -f "$dist_dir/index.html" ]]; then
-  echo "error: $dist_dir/index.html does not exist" >&2
-  echo "       run npm run build or use PSKC_BUILD=1." >&2
-  exit 1
-fi
-
 runtime_base="${PSKC_RUNTIME_DIR:-${XDG_RUNTIME_DIR:-}}"
 if [[ -z "$runtime_base" || ! -d "$runtime_base" || ! -w "$runtime_base" ]]; then
   runtime_base="${TMPDIR:-/tmp}"
@@ -67,24 +80,61 @@ runtime_dir="$runtime_base/pskc-site-nginx-$port"
 conf_file="$runtime_dir/nginx.conf"
 pid_file="$runtime_dir/nginx.pid"
 
-mkdir -p \
-  "$runtime_dir/logs" \
-  "$runtime_dir/tmp/client_body" \
-  "$runtime_dir/tmp/proxy" \
-  "$runtime_dir/tmp/fastcgi" \
-  "$runtime_dir/tmp/uwsgi" \
-  "$runtime_dir/tmp/scgi"
+running_pid() {
+  local pid
 
-if [[ -f "$pid_file" ]] && kill -0 "$(cat "$pid_file")" 2>/dev/null; then
-  echo "error: nginx already appears to be running for PSKC on port $port" >&2
-  echo "       pid file: $pid_file" >&2
-  exit 1
-fi
+  if [[ ! -f "$pid_file" ]]; then
+    return 1
+  fi
 
-nginx_prefix="$(dirname "$(dirname "$(command -v nginx)")")"
-mime_types="$nginx_prefix/conf/mime.types"
+  pid="$(cat "$pid_file" 2>/dev/null || true)"
+  if [[ "$pid" =~ ^[0-9]+$ ]] && kill -0 "$pid" 2>/dev/null; then
+    echo "$pid"
+    return 0
+  fi
 
-cat > "$conf_file" <<EOF
+  return 1
+}
+
+print_urls() {
+  echo "  Local:  http://127.0.0.1:$port/"
+
+  if [[ "$host" != "0.0.0.0" && "$host" != "127.0.0.1" ]]; then
+    echo "  Host:   http://$host:$port/"
+  fi
+
+  if command -v ip >/dev/null 2>&1; then
+    addresses="$(
+      ip -o -4 addr show scope global 2>/dev/null |
+        awk '{ split($4, address, "/"); print address[1] }' || true
+    )"
+
+    while read -r address; do
+      [[ -n "$address" ]] && echo "  LAN:    http://$address:$port/"
+    done <<< "$addresses"
+  fi
+}
+
+print_logs() {
+  echo "  Logs:   $runtime_dir/logs/access.log"
+  echo "          $runtime_dir/logs/error.log"
+}
+
+prepare_runtime() {
+  mkdir -p \
+    "$runtime_dir/logs" \
+    "$runtime_dir/tmp/client_body" \
+    "$runtime_dir/tmp/proxy" \
+    "$runtime_dir/tmp/fastcgi" \
+    "$runtime_dir/tmp/uwsgi" \
+    "$runtime_dir/tmp/scgi"
+}
+
+write_config() {
+  nginx_prefix="$(dirname "$(dirname "$(command -v nginx)")")"
+  mime_types="$nginx_prefix/conf/mime.types"
+
+  cat > "$conf_file" <<EOF
 worker_processes 1;
 pid $pid_file;
 error_log $runtime_dir/logs/error.log info;
@@ -136,28 +186,89 @@ http {
   }
 }
 EOF
+}
+
+if [[ "$mode" == "status" ]]; then
+  if pid="$(running_pid)"; then
+    echo "PSKC nginx preview is running on pid $pid"
+    print_urls
+    print_logs
+    exit 0
+  fi
+
+  echo "PSKC nginx preview is not running on port $port"
+  exit 1
+fi
+
+if [[ "$mode" == "stop" ]]; then
+  if pid="$(running_pid)"; then
+    kill "$pid" 2>/dev/null || true
+
+    for _ in 1 2 3 4 5; do
+      if kill -0 "$pid" 2>/dev/null; then
+        sleep 1
+      else
+        break
+      fi
+    done
+
+    if kill -0 "$pid" 2>/dev/null; then
+      echo "PSKC nginx preview is still stopping on pid $pid"
+    else
+      rm -f "$pid_file"
+      echo "Stopped PSKC nginx preview on port $port"
+    fi
+    exit 0
+  fi
+
+  rm -f "$pid_file"
+  echo "PSKC nginx preview is not running on port $port"
+  exit 0
+fi
+
+if [[ "$build" != "0" ]]; then
+  if [[ ! -d "$site_root/node_modules" ]]; then
+    echo "node_modules not found; installing dependencies with npm ci..."
+    (cd "$site_root" && npm ci)
+  fi
+
+  echo "Building Astro site..."
+  (cd "$site_root" && npm run build)
+fi
+
+if [[ ! -f "$dist_dir/index.html" ]]; then
+  echo "error: $dist_dir/index.html does not exist" >&2
+  echo "       run npm run build or use PSKC_BUILD=1." >&2
+  exit 1
+fi
+
+prepare_runtime
+
+if pid="$(running_pid)"; then
+  echo "PSKC nginx preview is already running on pid $pid"
+  print_urls
+  print_logs
+  exit 0
+fi
+
+rm -f "$pid_file"
+
+write_config
+
+if [[ "$mode" == "daemon" ]]; then
+  nginx -e "$runtime_dir/logs/error.log" -p "$runtime_dir" -c "$conf_file"
+  echo "Started PSKC nginx preview from $dist_dir"
+  print_urls
+  print_logs
+  exit 0
+fi
 
 echo
 echo "Serving PSKC static site from:"
 echo "  $dist_dir"
 echo
-echo "Nginx listen address:"
-echo "  http://$host:$port/"
-echo
-echo "Likely reachable URLs:"
-echo "  http://127.0.0.1:$port/"
-
-if command -v ip >/dev/null 2>&1; then
-  addresses="$(
-    ip -o -4 addr show scope global 2>/dev/null |
-      awk '{ split($4, address, "/"); print address[1] }' || true
-  )"
-
-  while read -r address; do
-    [[ -n "$address" ]] && echo "  http://$address:$port/"
-  done <<< "$addresses"
-fi
-
+echo "Reachable URLs:"
+print_urls
 echo
 echo "Logs:"
 echo "  $runtime_dir/logs/access.log"
