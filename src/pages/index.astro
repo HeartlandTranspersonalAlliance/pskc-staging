@@ -1,0 +1,114 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import CardGrid from "../components/CardGrid.astro";
+import Section from "../components/Section.astro";
+import Hero from "../components/Hero.astro";
+import { site } from "../data/site";
+
+const pillars = [
+  {
+    label: "Community",
+    title: "A welcoming space to connect",
+    body: "Monthly gatherings bring newcomers, advocates, artists, educators, researchers, therapists, and curious explorers into thoughtful conversation.",
+  },
+  {
+    label: "Education",
+    title: "Evidence-aware public learning",
+    body: "PSKC shares reliable information about psychedelic science, policy, culture, history, and clinical applications through events, posts, newsletters, and social channels.",
+  },
+  {
+    label: "Harm Reduction",
+    title: "Safety before spectacle",
+    body: "Our public programming emphasizes informed decision-making, legal boundaries, accurate risk information, and peer support.",
+  },
+  {
+    label: "Advocacy",
+    title: "Kansas City deserves better policy",
+    body: "We support compassionate, science-driven approaches to drug use, mental health, and community wellbeing.",
+  },
+];
+---
+
+<BaseLayout
+  title="Home"
+  description="A community-driven organization fostering education, dialogue, and connection around the transformative potential of psychedelics in Kansas City."
+>
+  <Hero
+    eyebrow="Psychedelic Society of Kansas City"
+    titleLines={["Find your", "people.", "Learn", "with", "care."]}
+    intro="PSKC fosters thoughtful conversations about psychedelics, responsible use, harm reduction, and evidence-based policy in Kansas City."
+    image="/assets/images/kcpcbanner.jpg"
+  >
+    <Button slot="actions" href={site.discord} variant="primary">Join Our Discord</Button>
+    <Button slot="actions" href="/events/" variant="light">View Events</Button>
+    <Button slot="actions" href={site.donate} variant="outline">Donate</Button>
+  </Hero>
+
+  <Section
+    eyebrow="What We Build"
+    title="A public square for psychedelic education in Kansas City."
+    intro="Whether you are a curious newcomer, seasoned advocate, practitioner, artist, or community organizer, PSKC offers a place to connect, learn, and grow."
+  >
+    <p class="statement">
+      We gather around knowledge, creativity, healing, policy, and the practical work of keeping each other safer.
+    </p>
+  </Section>
+
+  <Section
+    tone="mist"
+    eyebrow="Pillars"
+    title="Community work with clear values."
+    intro="The society is rooted in education, peer connection, harm reduction, and responsible public dialogue."
+  >
+    <CardGrid columns="four">
+      {
+        pillars.map((pillar) => (
+          <article class="feature-card">
+            <p class="eyebrow">{pillar.label}</p>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.body}</p>
+          </article>
+        ))
+      }
+    </CardGrid>
+  </Section>
+
+  <Section tone="ink" eyebrow="Monthly Meetups" title="Gatherings with substance.">
+    <div class="split-band">
+      <div>
+        <p class="text-xl leading-relaxed text-[var(--paper)]/85">
+          Join us for monthly meetups where speakers and community members explore clinical research, drug policy, visionary art, integration, health, and culture.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="/events/" variant="primary">Upcoming Events</Button>
+          <Button href={site.luma} variant="outline">Lu.ma Calendar</Button>
+        </div>
+      </div>
+      <div class="split-media">
+        <img src="/assets/images/PSKC%20FB_BANNER-01.jpeg" alt="Psychedelic Society of Kansas City banner artwork" loading="lazy" />
+      </div>
+    </div>
+  </Section>
+
+  <Section
+    eyebrow="KCPC 2025"
+    title="Kansas City Psychedelic Conference"
+    intro="KCPC brings together psychedelic leaders, practitioners, advocates, and voices from the Kansas City community."
+  >
+    <div class="split-band">
+      <div class="split-media">
+        <img src="/assets/images/kcpcbanner.jpg" alt="Kansas City Psychedelic Conference banner" loading="lazy" />
+      </div>
+      <div>
+        <p>
+          Explore advancements in psychedelic science, harm reduction, integration, Missouri policy efforts, and intimate group workshops.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="/kcpc/" variant="secondary">Conference Details</Button>
+          <Button href="https://luma.com/gkp6hqyd" variant="primary">Register</Button>
+        </div>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import Hero from "../components/Hero.astro";
+---
+
+<BaseLayout title="Page Not Found" description="Page not found." noIndex>
+  <Hero
+    compact
+    eyebrow="404"
+    titleLines={["Page not", "found."]}
+    intro="Sorry, but the page you were trying to view does not exist."
+    image="/assets/images/kcpcbanner.jpg"
+  >
+    <Button slot="actions" href="/" variant="primary">Return Home</Button>
+    <Button slot="actions" href="/events/" variant="light">View Events</Button>
+  </Hero>
+</BaseLayout>

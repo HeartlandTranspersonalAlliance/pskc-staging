@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import NewsCard from "../components/NewsCard.astro";
+import Section from "../components/Section.astro";
+import Hero from "../components/Hero.astro";
+
+const posts = (await getCollection("news")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<BaseLayout title="News" description="News, press releases, and advocacy updates from the Psychedelic Society of Kansas City.">
+  <Hero
+    compact
+    eyebrow="News"
+    titleLines={["Public", "updates."]}
+    intro="Press releases, policy notes, and public education updates from PSKC."
+    image="/assets/images/PSKC%20FB_BANNER-01.jpeg"
+  />
+
+  <Section>
+    <div class="grid gap-5">
+      {posts.map((post) => <NewsCard post={post} />)}
+    </div>
+  </Section>
+</BaseLayout>

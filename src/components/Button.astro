@@ -1,0 +1,33 @@
+---
+interface Props {
+  href: string;
+  variant?: "primary" | "secondary" | "light" | "outline";
+  class?: string;
+}
+
+const { href, variant = "primary", class: className = "" } = Astro.props;
+const external = href.startsWith("http");
+const variants = {
+  primary:
+    "bg-[var(--gold)] text-[var(--ink)] border-[var(--gold)] hover:bg-[var(--coral)] hover:border-[var(--coral)]",
+  secondary:
+    "bg-[var(--moss)] text-white border-[var(--moss)] hover:bg-[var(--ink)] hover:border-[var(--ink)]",
+  light:
+    "bg-[var(--paper)] text-[var(--ink)] border-[var(--paper)] hover:bg-white hover:border-white",
+  outline:
+    "bg-transparent text-current border-current hover:bg-current/10",
+};
+---
+
+<a
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
+  class:list={[
+    "inline-flex min-h-11 items-center justify-center rounded-full border-2 px-5 py-2.5 text-sm font-black uppercase tracking-normal transition duration-200 ease-out focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--gold)]/45",
+    variants[variant],
+    className,
+  ]}
+>
+  <slot />
+</a>

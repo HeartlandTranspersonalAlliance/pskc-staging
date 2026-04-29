@@ -1,27 +1,53 @@
-# Minimal Mistakes remote theme starter
+# Psychedelic Society of Kansas City
 
-Click [**Use this template**](https://github.com/mmistakes/mm-github-pages-starter/generate) button above for the quickest method of getting started with the [Minimal Mistakes Jekyll theme](https://github.com/mmistakes/minimal-mistakes).
+Modern Astro static site for `psychedelickc.org`.
 
-Contains basic configuration to get you a site with:
+## Development
 
-- Sample posts.
-- Sample top navigation.
-- Sample author sidebar with social links.
-- Sample footer links.
-- Paginated home page.
-- Archive pages for posts grouped by year, category, and tag.
-- Sample about page.
-- Sample 404 page.
-- Site wide search.
+```sh
+npm install
+npm run dev
+```
 
-Replace sample content with your own and [configure as necessary](https://mmistakes.github.io/minimal-mistakes/docs/configuration/).
+With Nix:
 
----
+```sh
+nix develop
+npm run dev
+```
 
-## Troubleshooting
+If you use `direnv`, run `direnv allow` once. After that, `cd ~/projects/hta/pskc-site` will load the Nix shell automatically through `.envrc`.
 
-If you have a question about using Jekyll, start a discussion on the [Jekyll Forum](https://talk.jekyllrb.com/) or [StackOverflow](https://stackoverflow.com/questions/tagged/jekyll). Other resources:
+## Build
 
-- [Ruby 101](https://jekyllrb.com/docs/ruby-101/)
-- [Setting up a Jekyll site with GitHub Pages](https://jekyllrb.com/docs/github-pages/)
-- [Configuring GitHub Metadata](https://github.com/jekyll/github-metadata/blob/master/docs/configuration.md#configuration) to work properly when developing locally and avoid `No GitHub API authentication could be found. Some fields may be missing or have incorrect data.` warnings.
+```sh
+npm run build
+```
+
+## LAN Preview With Nginx
+
+The flake provides `pskc-lan-preview`, a user-space Nginx wrapper for previewing the generated Astro site on your local network.
+
+```sh
+nix develop
+pskc-lan-preview
+```
+
+By default it:
+
+- installs npm dependencies if `node_modules/` is missing
+- runs `npm run build`
+- serves `dist/` with Nginx on `0.0.0.0:8080`
+- prints local and LAN URLs such as `http://127.0.0.1:8080/` and `http://<wsl-ip>:8080/`
+
+Useful overrides:
+
+```sh
+PSKC_PORT=8081 pskc-lan-preview
+PSKC_BUILD=0 pskc-lan-preview
+PSKC_HOST=127.0.0.1 pskc-lan-preview
+```
+
+For D-WSL/WSL2, the script binds inside the Linux environment. If another device on your LAN cannot reach the printed WSL IP, enable WSL mirrored networking or add a Windows firewall/portproxy rule for the chosen port.
+
+The site uses Astro content collections for published news posts, Tailwind CSS through the official Vite plugin, and static assets from `public/assets/images`. The `public/CNAME` file preserves the custom domain in the generated `dist/` output.

@@ -1,0 +1,111 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import CardGrid from "../components/CardGrid.astro";
+import ImageGallery from "../components/ImageGallery.astro";
+import Section from "../components/Section.astro";
+import Hero from "../components/Hero.astro";
+
+const lineup = [
+  {
+    src: "/assets/images/kcpc/mind.jpg",
+    alt: "The MIND lineup",
+    title: "The MIND track features all of our speakers and panelists.",
+  },
+  {
+    src: "/assets/images/kcpc/body.jpg",
+    alt: "The BODY lineup",
+    title: "The BODY track features workshops, group activities, and ceremonies.",
+  },
+];
+
+const visionarySponsors = [
+  {
+    href: "https://alicecbd.com/",
+    src: "/assets/images/kcpc/alicecbd.jpg",
+    alt: "alice RN Nutraceutical logo",
+    title:
+      "aliceCBD and alice RN Nutraceutical specialize in products that use cannabinoids and terpenes that are federally legal equal to or less than 0.3% THC Delta 9, including CBD, THC-V, CBG, BCP, THC-P, CBD-P, and Delta-8.",
+  },
+];
+
+const trailblazerSponsors = [
+  {
+    href: "https://www.hummingbirdhealthcare.com/",
+    src: "/assets/images/kcpc/hummingbird.jpg",
+    alt: "Hummingbird Healthcare logo",
+    title: "Hummingbird Healthcare",
+  },
+  {
+    href: "https://www.evolution-mag.com/",
+    src: "/assets/images/kcpc/evolution.jpg",
+    alt: "The Evolution Magazine logo",
+    title: "Evolution Magazine",
+  },
+];
+
+const exploreItems = [
+  "Advancements in psychedelic science",
+  "Harm reduction and psychedelic integration discussion panels",
+  "Updates on psychedelic policy efforts in Missouri",
+  "Intimate group workshops featuring ecstatic dance, meditation, yoga, authentic relating, cacao ceremonies, and more",
+];
+---
+
+<BaseLayout
+  title="Kansas City Psychedelic Conference"
+  description="KCPC brings together psychedelic leaders, practitioners, advocates, and voices from the Kansas City community."
+>
+  <Hero
+    eyebrow="KCPC 2025"
+    titleLines={["Kansas City", "Psychedelic", "Conference"]}
+    intro="KCPC brings together psychedelic leaders, practitioners, and advocates from across the nation as well as voices from the Kansas City community."
+    image="/assets/images/kcpcbanner.jpg"
+  >
+    <Button slot="actions" href="https://luma.com/gkp6hqyd" variant="primary">Register Today</Button>
+  </Hero>
+
+  <Section eyebrow="Explore" title="Science, integration, policy, and embodied practice.">
+    <CardGrid columns="four">
+      {exploreItems.map((item) => (
+        <article class="feature-card">
+          <p class="eyebrow">KCPC</p>
+          <h3>{item}</h3>
+        </article>
+      ))}
+    </CardGrid>
+  </Section>
+
+  <Section tone="mist" eyebrow="Lineup" title="MIND and BODY tracks">
+    <ImageGallery images={lineup} />
+  </Section>
+
+  <Section eyebrow="Special Thanks" title="KCPC sponsors make this possible.">
+    <div class="space-y-12">
+      <div>
+        <h2 class="mb-5 font-serif text-3xl font-black tracking-normal">Visionary Sponsor</h2>
+        <ImageGallery images={visionarySponsors} columns="three" />
+      </div>
+      <div>
+        <h2 class="mb-5 font-serif text-3xl font-black tracking-normal">Trailblazer Sponsors</h2>
+        <ImageGallery images={trailblazerSponsors} />
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="ink" eyebrow="Help Out" title="Volunteers, sponsors, and vendors">
+    <div class="split-band">
+      <p class="text-xl leading-relaxed text-[var(--paper)]/85">
+        Volunteers, Sponsors, and Vendors are encouraged to fill out their applications by <strong>November 1st</strong>.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <Button href="https://forms.gle/kixvX9AdE5NzSDaX8" variant="primary">
+          Sponsor & Vendor Application
+        </Button>
+        <Button href="https://forms.gle/QVXHRW4WTjT3qoaE9" variant="outline">
+          Event Volunteer Waitlist
+        </Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

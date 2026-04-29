@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CardGrid from "../components/CardGrid.astro";
+import Section from "../components/Section.astro";
+import Hero from "../components/Hero.astro";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+  title="Contact Us"
+  description="Contact the Psychedelic Society of Kansas City for questions, collaborations, community links, and donation information."
+>
+  <Hero
+    compact
+    eyebrow="Contact"
+    titleLines={["Reach PSKC."]}
+    intro="Have a question, comment, or collaboration opportunity in mind? We would love to hear from you."
+    image="/assets/images/PSKC%20FB_BANNER-01.jpeg"
+  />
+
+  <Section>
+    <CardGrid columns="four">
+      <article class="contact-card">
+        <p class="eyebrow">Community</p>
+        <h2>Join our community</h2>
+        <p>
+          Interact with us directly in our online community on
+          <a href={site.discord} target="_blank" rel="noopener noreferrer">Discord</a>.
+        </p>
+      </article>
+      <article class="contact-card">
+        <p class="eyebrow">Follow</p>
+        <h2>Social links</h2>
+        <p>
+          <a href={site.linksHub} target="_blank" rel="noopener noreferrer">Check out our links hub</a>
+          for our newsletter, social media contacts, and more.
+        </p>
+      </article>
+      <article class="contact-card">
+        <p class="eyebrow">Email</p>
+        <h2>Inquiries</h2>
+        <p>
+          Send us an email at
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          and we will get back to you shortly.
+        </p>
+      </article>
+      <article class="contact-card">
+        <p class="eyebrow">Support</p>
+        <h2>Donate</h2>
+        <p>
+          <a href={site.donate} target="_blank" rel="noopener noreferrer">Donate here</a>
+          to help us advance the psychedelic movement.
+        </p>
+      </article>
+    </CardGrid>
+  </Section>
+</BaseLayout>

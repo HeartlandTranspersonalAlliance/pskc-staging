@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"news">;
+}
+
+const { post } = Astro.props;
+const date = post.data.date.toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+---
+
+<article class="news-card">
+  <p class="eyebrow">{date}</p>
+  <h2>
+    <a href={`/${post.id}/`}>{post.data.title}</a>
+  </h2>
+  <p>{post.data.description}</p>
+  <div class="tag-row" aria-label="Post categories">
+    {post.data.categories.map((category) => <span>{category}</span>)}
+  </div>
+</article>

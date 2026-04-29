@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CardGrid from "../components/CardGrid.astro";
+import Section from "../components/Section.astro";
+import Hero from "../components/Hero.astro";
+---
+
+<BaseLayout
+  title="Resources"
+  description="Local harm reduction and psychedelic-focused resources in Kansas City."
+>
+  <Hero
+    compact
+    eyebrow="Resources"
+    titleLines={["Local care", "and connection."]}
+    intro="Local harm reduction and psychedelic-focused organizations where you can volunteer, connect with like-minded peers, and support the growing movement in Kansas City."
+    image="/assets/images/kcpcbanner.jpg"
+  />
+
+  <Section>
+    <CardGrid columns="two">
+      <article class="resource-card">
+        <p class="eyebrow">Integration</p>
+        <h2>
+          <a href="https://kc-psychedelic.com" target="_blank" rel="noopener noreferrer">
+            Kansas City Psychedelic Integration Circle
+          </a>
+        </h2>
+        <p>
+          A confidential community centered around sharing and processing experiences that are outside the ordinary within a supportive and non-judgmental community of peers.
+        </p>
+      </article>
+
+      <article class="resource-card">
+        <p class="eyebrow">Harm Reduction</p>
+        <h2>
+          <a href="https://ravesafeinc.com" target="_blank" rel="noopener noreferrer">
+            RaveSafe Inc.
+          </a>
+        </h2>
+        <p>
+          A harm reduction, volunteer-led nonprofit that strives to provide Narcan, fentanyl test strips, and various other supplies to venues in Kansas City and St. Louis.
+        </p>
+      </article>
+    </CardGrid>
+  </Section>
+</BaseLayout>

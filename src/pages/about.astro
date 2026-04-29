@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CardGrid from "../components/CardGrid.astro";
+import Section from "../components/Section.astro";
+import Hero from "../components/Hero.astro";
+---
+
+<BaseLayout
+  title="About Us"
+  description="Learn about the Psychedelic Society of Kansas City mission, community, and monthly education work."
+>
+  <Hero
+    compact
+    eyebrow="About PSKC"
+    titleLines={["Who we are."]}
+    intro="A community-driven organization dedicated to education, dialogue, and connection around the transformative potential of psychedelics."
+    image="/assets/images/PSKC%20FB_BANNER-01.jpeg"
+  />
+
+  <Section>
+    <article class="prose-site">
+      <h1>About Us</h1>
+      <h2>Who We Are</h2>
+      <p>
+        The Psychedelic Society of Kansas City (PSKC) is a community-driven organization dedicated to fostering education, dialogue, and connection around the transformative potential of psychedelics. Our members come from all walks of life: clinical researchers, artists, therapists, educators, and curious explorers united by an interest in the beneficial use and responsible integration of these tools into society.
+      </p>
+
+      <h2>Our Mission</h2>
+      <p>
+        Founded in 2024, PSKC aims to provide a safe, inclusive space where people can learn about psychedelic medicine, share their personal stories, and exchange ideas about the rapidly evolving fields of research and clinical applications. By bringing together diverse voices and perspectives, we hope to break down stigma and support evidence-based practices that promote healing, creativity, and cultural enrichment.
+      </p>
+    </article>
+  </Section>
+
+  <Section tone="mist" eyebrow="What We Do" title="Practical ways PSKC gathers people.">
+    <CardGrid columns="three">
+      <article class="feature-card">
+        <p class="eyebrow">Monthly Meetups</p>
+        <h3>Public programs and conversation</h3>
+        <p>
+          We gather monthly to hear keynote speakers present on clinical trials, current events in psychedelic policy, art projects, and emerging opportunities in Kansas City.
+        </p>
+      </article>
+      <article class="feature-card">
+        <p class="eyebrow">Education</p>
+        <h3>Reliable context for a fast-moving field</h3>
+        <p>
+          We strive to share reliable, up-to-date information about psychedelics, from clinical breakthroughs to historical context, through posts, newsletters, and social media channels.
+        </p>
+      </article>
+      <article class="feature-card">
+        <p class="eyebrow">Engagement</p>
+        <h3>Local collaboration and awareness</h3>
+        <p>
+          PSKC is committed to serving the broader Kansas City community through workshops, collaborations, and events that promote education and awareness.
+        </p>
+      </article>
+    </CardGrid>
+  </Section>
+</BaseLayout>

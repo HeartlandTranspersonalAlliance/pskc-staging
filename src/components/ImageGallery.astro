@@ -1,0 +1,40 @@
+---
+interface GalleryImage {
+  href?: string;
+  src: string;
+  alt: string;
+  title?: string;
+}
+
+interface Props {
+  images: GalleryImage[];
+  columns?: "two" | "three";
+}
+
+const { images, columns = "two" } = Astro.props;
+const columnClasses = {
+  two: "md:grid-cols-2",
+  three: "md:grid-cols-2 xl:grid-cols-3",
+};
+---
+
+<div class:list={["image-gallery", columnClasses[columns]]}>
+  {
+    images.map((image) => {
+      const content = (
+        <>
+          <img src={image.src} alt={image.alt} loading="lazy" />
+          {image.title && <p>{image.title}</p>}
+        </>
+      );
+
+      return image.href ? (
+        <a href={image.href} target="_blank" rel="noopener noreferrer">
+          {content}
+        </a>
+      ) : (
+        <figure>{content}</figure>
+      );
+    })
+  }
+</div>

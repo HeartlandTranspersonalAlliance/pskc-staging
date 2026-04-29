@@ -1,0 +1,36 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  tone?: "paper" | "ink" | "mist";
+  class?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  intro,
+  tone = "paper",
+  class: className = "",
+} = Astro.props;
+
+const tones = {
+  paper: "bg-[var(--paper)] text-[var(--ink)]",
+  ink: "bg-[var(--ink)] text-[var(--paper)]",
+  mist: "bg-[var(--mist)] text-[var(--ink)]",
+};
+---
+
+<section class:list={["section-band", tones[tone], className]}>
+  <div class="site-container">
+    {(eyebrow || title || intro) && (
+      <div class="section-heading">
+        {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+        {title && <h2>{title}</h2>}
+        {intro && <p>{intro}</p>}
+      </div>
+    )}
+    <slot />
+  </div>
+</section>

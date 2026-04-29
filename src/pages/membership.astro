@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import CardGrid from "../components/CardGrid.astro";
+import Section from "../components/Section.astro";
+import Hero from "../components/Hero.astro";
+import { site } from "../data/site";
+
+const tiers = [
+  {
+    tier: "Good",
+    title: "Community Supporter",
+    body: "A simple monthly way to back PSKC's education, meetups, and community-building work.",
+    items: ["Patreon member updates", "Ad-free podcast access", "Support for local programming"],
+  },
+  {
+    tier: "Better",
+    title: "Sustaining Member",
+    body: "For members who want to keep PSKC programming steady while receiving deeper member bonuses.",
+    items: ["Everything in Good", "Bonus podcast and education notes", "Early community announcements"],
+  },
+  {
+    tier: "Best",
+    title: "Movement Builder",
+    body: "A higher-support option for people who want to materially strengthen PSKC's public education work.",
+    items: ["Everything in Better", "Expanded member-only updates", "Recognition as a sustaining supporter"],
+  },
+];
+---
+
+<BaseLayout
+  title="Membership"
+  description="Support the Psychedelic Society of Kansas City through Patreon membership, with Good, Better, and Best tiers and bonuses including ad-free podcasts."
+>
+  <Hero
+    compact
+    eyebrow="Membership"
+    titleLines={["Support the", "society."]}
+    intro="Patreon membership is a monthly way to sustain PSKC's community, education, harm reduction, and local connection work."
+    image="/assets/images/PSKC%20FB_BANNER-01.jpeg"
+  >
+    <Button slot="actions" href={site.patreon} variant="primary">Join on Patreon</Button>
+    <Button slot="actions" href={site.donate} variant="light">One-Time Donation</Button>
+  </Hero>
+
+  <Section
+    eyebrow="Member Bonuses"
+    title="Good, Better, Best support for the work ahead."
+    intro="Each tier helps PSKC keep public education and community gathering accessible while offering members a clearer way to stay connected."
+  >
+    <CardGrid columns="three">
+      {
+        tiers.map((tier) => (
+          <article class="feature-card">
+            <p class="eyebrow">{tier.tier}</p>
+            <h3>{tier.title}</h3>
+            <p>{tier.body}</p>
+            <ul class="mt-5 space-y-2">
+              {tier.items.map((item) => (
+                <li class="flex gap-2">
+                  <span class="mt-2 size-2 shrink-0 rounded-full bg-[var(--coral)]"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </CardGrid>
+  </Section>
+
+  <Section tone="mist" eyebrow="Why Patreon" title="A steady base for community work.">
+    <div class="split-band">
+      <div>
+        <p>
+          Membership helps PSKC plan educational programming, maintain community channels, publish member-supported media, and keep local gatherings moving with more predictability.
+        </p>
+        <p class="mt-5">
+          Ad-free podcast access is included as a member bonus, alongside Patreon updates and tier-based extras.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href={site.patreon} variant="secondary">View Patreon Tiers</Button>
+          <Button href="/contact/" variant="outline">Ask a Question</Button>
+        </div>
+      </div>
+      <div class="split-media">
+        <img src="/assets/images/logo.jpg" alt="Psychedelic Society of Kansas City logo" loading="lazy" />
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

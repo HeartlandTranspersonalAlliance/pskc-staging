@@ -1,0 +1,19 @@
+---
+interface Props {
+  title?: string;
+  tone?: "gold" | "coral" | "moss";
+  class?: string;
+}
+
+const { title, tone = "gold", class: className = "" } = Astro.props;
+const tones = {
+  gold: "border-[var(--gold)] bg-[var(--gold)]/20",
+  coral: "border-[var(--coral)] bg-[var(--coral)]/15",
+  moss: "border-[var(--fern)] bg-[var(--fern)]/15",
+};
+---
+
+<aside class:list={["callout", tones[tone], className]}>
+  {title && <h2>{title}</h2>}
+  <slot />
+</aside>

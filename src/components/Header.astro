@@ -1,0 +1,50 @@
+---
+import Button from "./Button.astro";
+import { navItems, site } from "../data/site";
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/"
+    ? currentPath === "/"
+    : currentPath === href || currentPath.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="site-container header-inner">
+    <a class="brand-lockup" href="/" aria-label="Psychedelic Society of Kansas City home">
+      <img src="/assets/images/logo.jpg" alt="" />
+      <span>
+        <strong>PSKC</strong>
+        <small>Kansas City</small>
+      </span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {navItems.map((item) => (
+        <a class:list={[isActive(item.href) && "active"]} href={item.href}>
+          {item.title}
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-action">
+      <Button href={site.discord} variant="primary">Join Discord</Button>
+    </div>
+
+    <details class="mobile-menu">
+      <summary aria-label="Open navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </summary>
+      <nav aria-label="Mobile navigation">
+        {navItems.map((item) => (
+          <a class:list={[isActive(item.href) && "active"]} href={item.href}>
+            {item.title}
+          </a>
+        ))}
+        <Button href={site.discord} variant="primary">Join Discord</Button>
+      </nav>
+    </details>
+  </div>
+</header>

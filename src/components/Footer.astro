@@ -1,0 +1,36 @@
+---
+import Button from "./Button.astro";
+import { site, socialLinks } from "../data/site";
+---
+
+<footer class="site-footer">
+  <div class="site-container footer-grid">
+    <div>
+      <p class="eyebrow">Stay Connected</p>
+      <h2>Community, education, and harm reduction in Kansas City.</h2>
+      <div class="footer-actions">
+        <Button href={site.discord} variant="light">Discord</Button>
+        <Button href="/membership/" variant="outline">Membership</Button>
+        <Button href={site.luma} variant="outline">Events</Button>
+        <Button href={site.donate} variant="outline">Donate</Button>
+      </div>
+    </div>
+
+    <nav aria-label="Social links">
+      {socialLinks.map((link) => (
+        <a href={link.href} target="_blank" rel="noopener noreferrer">
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+  <div class="site-container footer-legal">
+    <p>
+      &copy; {new Date().getFullYear()} {site.title} is a DBA of the
+      <a href="https://heartlandta.org" target="_blank" rel="noopener noreferrer">
+        Heartland Transpersonal Alliance, Inc.
+      </a>
+      , a registered 501(c)(3) in the state of Missouri.
+    </p>
+  </div>
+</footer>

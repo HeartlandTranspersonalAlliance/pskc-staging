@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("news");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const date = post.data.date.toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <section class="prose-shell bg-[var(--paper)] text-[var(--ink)]">
+    <article class="site-container prose-site">
+      <p class="eyebrow">{date}</p>
+      <h1>{post.data.title}</h1>
+      <div class="tag-row" aria-label="Post categories">
+        {post.data.categories.map((category) => <span>{category}</span>)}
+      </div>
+      <Content />
+    </article>
+  </section>
+</BaseLayout>

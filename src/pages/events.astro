@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import Section from "../components/Section.astro";
+import Hero from "../components/Hero.astro";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+  title="Upcoming Events"
+  description="Upcoming Psychedelic Society of Kansas City events and monthly meetups."
+>
+  <Hero
+    compact
+    eyebrow="Events"
+    titleLines={["Upcoming", "gatherings."]}
+    intro="PSKC hosts public education events, monthly meetups, and community gatherings across Kansas City."
+    image="/assets/images/kcpcbanner.jpg"
+  >
+    <Button slot="actions" href={site.luma} variant="primary">Open Lu.ma Calendar</Button>
+  </Hero>
+
+  <Section eyebrow="Calendar" title="Upcoming events">
+    <iframe
+      class="luma-frame"
+      src="https://lu.ma/embed/calendar/cal-WzYiUbVWw82gLyR/events?lt=dark"
+      title="Psychedelic Society of Kansas City Lu.ma events calendar"
+      frameborder="0"
+      allowfullscreen
+      aria-hidden="false"
+      tabindex="0"
+    ></iframe>
+    <p class="mt-5 text-base">
+      Having trouble viewing the embedded calendar?
+      <a class="font-black underline decoration-[var(--gold)] decoration-4 underline-offset-4" href={site.luma} target="_blank" rel="noopener noreferrer">
+        Open the PSKC Lu.ma calendar.
+      </a>
+    </p>
+  </Section>
+</BaseLayout>

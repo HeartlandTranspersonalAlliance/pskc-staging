@@ -1,0 +1,27 @@
+---
+interface Props {
+  eyebrow?: string;
+  titleLines: string[];
+  intro?: string;
+  image: string;
+  compact?: boolean;
+}
+
+const { eyebrow, titleLines, intro, image, compact = false } = Astro.props;
+---
+
+<section
+  class:list={["hero-shell", compact && "hero-shell--compact"]}
+  style={`--hero-image: url("${image}")`}
+>
+  <div class="site-container hero-content">
+    {eyebrow && <p class="eyebrow hero-eyebrow">{eyebrow}</p>}
+    <h1>
+      {titleLines.map((line) => <span>{line}</span>)}
+    </h1>
+    {intro && <p class="hero-intro">{intro}</p>}
+    <div class="hero-actions">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>
