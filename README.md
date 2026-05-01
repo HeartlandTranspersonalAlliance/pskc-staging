@@ -3,6 +3,26 @@
 Astro static site for the PSKC staging URL:
 `https://heartlandtranspersonalalliance.github.io/pskc-staging/`.
 
+## Documentation
+
+Contributor docs live in [`docs/README.md`](docs/README.md). Start there for:
+
+- adding new Astro pages in `src/pages/`
+- adding Markdown-generated news posts in `src/content/news/`
+- updating the header navigation in `src/data/site.ts`
+- using Markdown, GitHub-flavored Markdown, and raw HTML formatting in pages
+  rendered by Astro
+
+## Site Editing Overview
+
+| Change | Primary file or directory |
+| --- | --- |
+| Add a full custom page | `src/pages/*.astro` |
+| Add a Markdown news post | `src/content/news/*.md` |
+| Update the header nav | `src/data/site.ts` |
+| Change Markdown page styling | `.prose-site` rules in `src/styles/global.css` |
+| Add public images | `public/assets/images/` |
+
 ## Adding Markdown Posts
 
 All published posts currently use the `news` content collection.
@@ -11,8 +31,8 @@ All published posts currently use the `news` content collection.
 | --- | --- | --- |
 | News, press releases, advocacy updates, event recaps | `src/content/news/` | `/pskc-staging/<filename>/` |
 
-Create a new `.md` or `.mdx` file in `src/content/news/`. The filename becomes
-the page slug. For example:
+Create a new `.md` file in `src/content/news/`. The filename becomes the page
+slug. For example:
 
 ```text
 src/content/news/city-council-statement.md
@@ -40,6 +60,10 @@ tags:
 
 `title`, `date`, and `description` are required. `categories` and `tags` are
 optional arrays, but using them keeps the News page easier to scan.
+
+The content collection currently matches `.mdx` files too, but this repo does
+not include the `@astrojs/mdx` integration. Use `.md` unless MDX support is
+added to `package.json` and `astro.config.mjs`.
 
 Images should be placed in `public/assets/images/news/`. Since this staging site
 is deployed under `/pskc-staging/`, Markdown image paths should include that base:
