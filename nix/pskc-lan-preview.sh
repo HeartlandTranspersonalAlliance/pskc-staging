@@ -130,6 +130,19 @@ prepare_runtime() {
     "$runtime_dir/tmp/scgi"
 }
 
+close_extra_fds() {
+  local fd fd_dir fd_path
+
+  fd_dir="/proc/$$/fd"
+
+  for fd_path in "$fd_dir"/*; do
+    fd="${fd_path##*/}"
+    [[ "$fd" =~ ^[0-9]+$ ]] || continue
+    [[ "$fd" -gt 2 ]] || continue
+    eval "exec ${fd}>&-"
+  done
+}
+
 write_config() {
   nginx_prefix="$(dirname "$(dirname "$(command -v nginx)")")"
   mime_types="$nginx_prefix/conf/mime.types"
@@ -256,7 +269,17 @@ rm -f "$pid_file"
 write_config
 
 if [[ "$mode" == "daemon" ]]; then
-  nginx -e "$runtime_dir/logs/error.log" -p "$runtime_dir" -c "$conf_file"
+  start_log="$runtime_dir/logs/start.log"
+
+  if ! (
+    close_extra_fds
+    exec nginx -e "$runtime_dir/logs/error.log" -p "$runtime_dir" -c "$conf_file" \
+      </dev/null >"$start_log" 2>&1
+  ); then
+    cat "$start_log" >&2
+    exit 1
+  fi
+
   echo "Started PSKC nginx preview from $dist_dir"
   print_urls
   print_logs
