@@ -1,8 +1,9 @@
 ---
 import Button from "./Button.astro";
 import { navItems, site } from "../data/site";
+import { stripBase, withBase } from "../utils/urls";
 
-const currentPath = Astro.url.pathname;
+const currentPath = stripBase(Astro.url.pathname);
 const isActive = (href: string) =>
   href === "/"
     ? currentPath === "/"
@@ -11,8 +12,8 @@ const isActive = (href: string) =>
 
 <header class="site-header">
   <div class="site-container header-inner">
-    <a class="brand-lockup" href="/" aria-label="Psychedelic Society of Kansas City home">
-      <img src="/assets/images/logo.jpg" alt="" />
+    <a class="brand-lockup" href={withBase("/")} aria-label="Psychedelic Society of Kansas City home">
+      <img src={withBase("/assets/images/logo.jpg")} alt="" />
       <span>
         <strong>PSKC</strong>
         <small>Kansas City</small>
@@ -21,7 +22,7 @@ const isActive = (href: string) =>
 
     <nav class="desktop-nav" aria-label="Primary navigation">
       {navItems.map((item) => (
-        <a class:list={[isActive(item.href) && "active"]} href={item.href}>
+        <a class:list={[isActive(item.href) && "active"]} href={withBase(item.href)}>
           {item.title}
         </a>
       ))}
@@ -39,7 +40,7 @@ const isActive = (href: string) =>
       </summary>
       <nav aria-label="Mobile navigation">
         {navItems.map((item) => (
-          <a class:list={[isActive(item.href) && "active"]} href={item.href}>
+          <a class:list={[isActive(item.href) && "active"]} href={withBase(item.href)}>
             {item.title}
           </a>
         ))}

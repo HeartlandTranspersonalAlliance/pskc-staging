@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { withBase } from "../utils/urls";
 
 interface Props {
   post: CollectionEntry<"news">;
@@ -16,7 +17,7 @@ const date = post.data.date.toLocaleDateString("en-US", {
 <article class="news-card">
   <p class="eyebrow">{date}</p>
   <h2>
-    <a href={`/${post.id}/`}>{post.data.title}</a>
+    <a href={withBase(`/${post.id}/`)}>{post.data.title}</a>
   </h2>
   <p>{post.data.description}</p>
   <div class="tag-row" aria-label="Post categories">

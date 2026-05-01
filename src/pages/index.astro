@@ -5,6 +5,7 @@ import CardGrid from "../components/CardGrid.astro";
 import Section from "../components/Section.astro";
 import Hero from "../components/Hero.astro";
 import { site } from "../data/site";
+import { withBase } from "../utils/urls";
 
 const pillars = [
   {
@@ -86,7 +87,7 @@ const pillars = [
         </div>
       </div>
       <div class="split-media">
-        <img src="/assets/images/PSKC%20FB_BANNER-01.jpeg" alt="Psychedelic Society of Kansas City banner artwork" loading="lazy" />
+        <img src={withBase("/assets/images/PSKC%20FB_BANNER-01.jpeg")} alt="Psychedelic Society of Kansas City banner artwork" loading="lazy" />
       </div>
     </div>
   </Section>
@@ -98,7 +99,7 @@ const pillars = [
   >
     <div class="split-band">
       <div class="split-media">
-        <img src="/assets/images/kcpcbanner.jpg" alt="Kansas City Psychedelic Conference banner" loading="lazy" />
+        <img src={withBase("/assets/images/kcpcbanner.jpg")} alt="Kansas City Psychedelic Conference banner" loading="lazy" />
       </div>
       <div>
         <p>

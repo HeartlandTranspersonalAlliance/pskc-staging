@@ -1,4 +1,6 @@
 ---
+import { withBase } from "../utils/urls";
+
 interface GalleryImage {
   href?: string;
   src: string;
@@ -23,7 +25,7 @@ const columnClasses = {
     images.map((image) => {
       const content = (
         <>
-          <img src={image.src} alt={image.alt} loading="lazy" />
+          <img src={withBase(image.src)} alt={image.alt} loading="lazy" />
           {image.title && <p>{image.title}</p>}
         </>
       );

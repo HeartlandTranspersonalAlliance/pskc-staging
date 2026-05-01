@@ -1,6 +1,7 @@
 # Psychedelic Society of Kansas City
 
-Modern Astro static site for `psychedelickc.org`.
+Modern Astro static site for the PSKC staging URL:
+`https://heartlandtranspersonalalliance.github.io/pskc-staging/`.
 
 ## Development
 
@@ -25,6 +26,22 @@ When `dist/` already exists, the direnv shell also starts a background Nginx pre
 ```sh
 npm run build
 ```
+
+The staging build is configured for GitHub Pages project hosting with:
+
+- Astro `site` set to `https://heartlandtranspersonalalliance.github.io`
+- Astro `base` set to `/pskc-staging`
+- trailing slashes enabled for generated routes
+
+## Deployment
+
+Pushing to `main` runs `.github/workflows/astro.yml`, which installs dependencies
+with `npm ci`, builds the Astro site, uploads `dist/` as a Pages artifact, and
+deploys it through GitHub Pages.
+
+The repository must have GitHub Pages configured to use **GitHub Actions** as the
+source in the repository settings. This staging repo does not use a custom domain,
+so there is no `public/CNAME` file.
 
 ## LAN Preview With Nginx
 
@@ -63,4 +80,4 @@ PSKC_AUTO_PREVIEW=0 direnv reload
 
 For D-WSL/WSL2, the script binds inside the Linux environment. If another device on your LAN cannot reach the printed WSL IP, enable WSL mirrored networking or add a Windows firewall/portproxy rule for the chosen port.
 
-The site uses Astro content collections for published news posts, Tailwind CSS through the official Vite plugin, and static assets from `public/assets/images`. The `public/CNAME` file preserves the custom domain in the generated `dist/` output.
+The site uses Astro content collections for published news posts, Tailwind CSS through the official Vite plugin, and static assets from `public/assets/images`.

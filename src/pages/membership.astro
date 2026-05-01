@@ -5,6 +5,7 @@ import CardGrid from "../components/CardGrid.astro";
 import Section from "../components/Section.astro";
 import Hero from "../components/Hero.astro";
 import { site } from "../data/site";
+import { withBase } from "../utils/urls";
 
 const tiers = [
   {
@@ -84,7 +85,7 @@ const tiers = [
         </div>
       </div>
       <div class="split-media">
-        <img src="/assets/images/logo.jpg" alt="Psychedelic Society of Kansas City logo" loading="lazy" />
+        <img src={withBase("/assets/images/logo.jpg")} alt="Psychedelic Society of Kansas City logo" loading="lazy" />
       </div>
     </div>
   </Section>

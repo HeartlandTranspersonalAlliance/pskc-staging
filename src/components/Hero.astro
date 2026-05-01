@@ -1,4 +1,6 @@
 ---
+import { withBase } from "../utils/urls";
+
 interface Props {
   eyebrow?: string;
   titleLines: string[];
@@ -8,11 +10,12 @@ interface Props {
 }
 
 const { eyebrow, titleLines, intro, image, compact = false } = Astro.props;
+const resolvedImage = withBase(image);
 ---
 
 <section
   class:list={["hero-shell", compact && "hero-shell--compact"]}
-  style={`--hero-image: url("${image}")`}
+  style={`--hero-image: url("${resolvedImage}")`}
 >
   <div class="site-container hero-content">
     {eyebrow && <p class="eyebrow hero-eyebrow">{eyebrow}</p>}

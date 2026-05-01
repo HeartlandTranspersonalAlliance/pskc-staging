@@ -1,4 +1,6 @@
 ---
+import { withBase } from "../utils/urls";
+
 interface Props {
   href: string;
   variant?: "primary" | "secondary" | "light" | "outline";
@@ -6,7 +8,8 @@ interface Props {
 }
 
 const { href, variant = "primary", class: className = "" } = Astro.props;
-const external = href.startsWith("http");
+const external = /^https?:\/\//i.test(href);
+const resolvedHref = withBase(href);
 const variants = {
   primary:
     "bg-[var(--gold)] text-[var(--ink)] border-[var(--gold)] hover:bg-[var(--coral)] hover:border-[var(--coral)]",
@@ -20,7 +23,7 @@ const variants = {
 ---
 
 <a
-  href={href}
+  href={resolvedHref}
   target={external ? "_blank" : undefined}
   rel={external ? "noopener noreferrer" : undefined}
   class:list={[

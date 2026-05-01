@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../data/site";
+import { stripBase, withBase } from "../utils/urls";
 import "../styles/global.css";
 
 interface Props {
@@ -18,7 +19,9 @@ const {
   noIndex = false,
 } = Astro.props;
 const pageTitle = title ? `${title} | ${site.title}` : site.title;
-const canonical = new URL(Astro.url.pathname, site.url).toString();
+const siteOrigin = Astro.site ?? new URL(site.url);
+const canonical = new URL(withBase(stripBase(Astro.url.pathname)), siteOrigin).toString();
+const openGraphImage = new URL(withBase(image), siteOrigin).toString();
 ---
 
 <!doctype html>
@@ -34,12 +37,12 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(image, site.url).toString()} />
-    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg" />
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
-    <link rel="manifest" href="/assets/images/site.webmanifest" />
+    <meta property="og:image" content={openGraphImage} />
+    <link rel="icon" type="image/png" href={withBase("/assets/images/favicon-96x96.png")} sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/assets/images/favicon.svg")} />
+    <link rel="shortcut icon" href={withBase("/assets/images/favicon.ico")} />
+    <link rel="apple-touch-icon" sizes="180x180" href={withBase("/assets/images/apple-touch-icon.png")} />
+    <link rel="manifest" href={withBase("/assets/images/site.webmanifest")} />
   </head>
   <body>
     <Header />
