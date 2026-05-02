@@ -1,8 +1,49 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CardGrid from "../components/CardGrid.astro";
+import Icon from "../components/Icon.astro";
 import Section from "../components/Section.astro";
 import Hero from "../components/Hero.astro";
+import { withBase } from "../utils/urls";
+
+const workCards = [
+  {
+    eyebrow: "Monthly Meetups",
+    icon: "calendar",
+    title: "Public programs and conversation",
+    body: "We gather monthly to hear keynote speakers present on clinical trials, current events in psychedelic policy, art projects, and emerging opportunities in Kansas City.",
+  },
+  {
+    eyebrow: "Education",
+    icon: "book",
+    title: "Reliable context for a fast-moving field",
+    body: "We strive to share reliable, up-to-date information about psychedelics, from clinical breakthroughs to historical context, through posts, newsletters, and social media channels.",
+  },
+  {
+    eyebrow: "Engagement",
+    icon: "users",
+    title: "Local collaboration and awareness",
+    body: "PSKC is committed to serving the broader Kansas City community through workshops, collaborations, and events that promote education and awareness.",
+  },
+];
+
+const timeline = [
+  {
+    year: "2024",
+    title: "PSKC takes shape",
+    body: "Community organizers begin building a safer local space for psychedelic education, peer connection, and public dialogue.",
+  },
+  {
+    year: "2025",
+    title: "KCPC expands the conversation",
+    body: "The Kansas City Psychedelic Conference brings speakers, workshops, advocates, and community members into one shared program.",
+  },
+  {
+    year: "Now",
+    title: "A steady home for the work",
+    body: "Monthly meetups, public updates, and member support keep the society focused on education, harm reduction, and care.",
+  },
+];
 ---
 
 <BaseLayout
@@ -32,29 +73,37 @@ import Hero from "../components/Hero.astro";
     </article>
   </Section>
 
-  <Section tone="mist" eyebrow="What We Do" title="Practical ways PSKC gathers people.">
+  <Section tone="mist" eyebrow="Since 2024" title="A young organization with a practical local focus.">
+    <div class="split-band">
+      <div class="split-media">
+        <img src={withBase("/assets/images/bio-photo.jpg")} alt="Colorful artwork representing reflection, community care, and Kansas landscapes" loading="lazy" />
+      </div>
+      <div class="timeline-list">
+        {timeline.map((item) => (
+          <article class="timeline-card">
+            <div class="timeline-year">{item.year}</div>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <Section eyebrow="What We Do" title="Practical ways PSKC gathers people.">
     <CardGrid columns="three">
-      <article class="feature-card">
-        <p class="eyebrow">Monthly Meetups</p>
-        <h3>Public programs and conversation</h3>
-        <p>
-          We gather monthly to hear keynote speakers present on clinical trials, current events in psychedelic policy, art projects, and emerging opportunities in Kansas City.
-        </p>
-      </article>
-      <article class="feature-card">
-        <p class="eyebrow">Education</p>
-        <h3>Reliable context for a fast-moving field</h3>
-        <p>
-          We strive to share reliable, up-to-date information about psychedelics, from clinical breakthroughs to historical context, through posts, newsletters, and social media channels.
-        </p>
-      </article>
-      <article class="feature-card">
-        <p class="eyebrow">Engagement</p>
-        <h3>Local collaboration and awareness</h3>
-        <p>
-          PSKC is committed to serving the broader Kansas City community through workshops, collaborations, and events that promote education and awareness.
-        </p>
-      </article>
+      {workCards.map((card) => (
+        <article class="feature-card">
+          <div class="card-icon">
+            <Icon name={card.icon} />
+          </div>
+          <p class="eyebrow">{card.eyebrow}</p>
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+        </article>
+      ))}
     </CardGrid>
   </Section>
 </BaseLayout>

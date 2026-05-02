@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
+import Icon from "../components/Icon.astro";
 import Section from "../components/Section.astro";
 
 const goals = [
@@ -19,6 +20,7 @@ const goals = [
 const sections = [
   {
     id: "safety",
+    icon: "shield",
     title: "1. Commitment to Safety and Harm Reduction",
     items: [
       ["Harm Reduction Principles", "Emphasize safety by providing accurate information on the potential risks and benefits of psychedelics and their responsible use."],
@@ -28,6 +30,7 @@ const sections = [
   },
   {
     id: "legal",
+    icon: "policy",
     title: "2. Respect for Legal Boundaries",
     items: [
       ["Legal Compliance", "Adhere to all local, state, and federal laws regarding psychedelic use, possession, and distribution. Discussions and materials provided by The Psychedelic Society of Kansas City are solely for educational, community-building, and harm reduction purposes."],
@@ -36,6 +39,7 @@ const sections = [
   },
   {
     id: "age",
+    icon: "users",
     title: "3. Age Restrictions",
     items: [
       ["Minimum Age Requirement", "All attendees for in-person events hosted by The Psychedelic Society of Kansas City must be <strong>21 years of age or older</strong> at the time of the event. This policy is in place to ensure compliance with legal standards and to prioritize the safety of participants."],
@@ -44,6 +48,7 @@ const sections = [
   },
   {
     id: "accountability",
+    icon: "check",
     title: "4. Community and Ethical Accountability",
     items: [
       ["Transparent Governance", "Establish transparent, community-driven processes to ensure accountability, foster ethical self-regulation, and address misconduct constructively through dialogue, peer review, and \"psychedelic transformative justice\" practices."],
@@ -52,6 +57,7 @@ const sections = [
   },
   {
     id: "accuracy",
+    icon: "book",
     title: "5. Integrity and Accuracy in Education",
     items: [
       ["Evidence-Based Information", "Offer balanced, scientifically-backed content regarding psychedelics, tailored to diverse community needs, without bias, exaggeration, or misinformation."],
@@ -60,6 +66,7 @@ const sections = [
   },
   {
     id: "respect",
+    icon: "heart",
     title: "6. Non-Exploitation and Respect for Cultural Practices",
     items: [
       ["Respect for Cultural Practices", "Uphold respect for indigenous and traditional practices."],
@@ -68,6 +75,7 @@ const sections = [
   },
   {
     id: "accessibility",
+    icon: "users",
     title: "7. Community Building and Accessibility",
     items: [
       ["Inclusion and Accessibility", "Foster an inclusive environment that welcomes diverse perspectives, ensuring community activities remain accessible and beneficial to all members."],
@@ -76,6 +84,7 @@ const sections = [
   },
   {
     id: "responsibility",
+    icon: "firstAid",
     title: "8. Personal Responsibility and Risk Acknowledgment",
     items: [
       ["Informed Consent", "Require attendees, members, and/or staff to acknowledge risks involved in psychedelic discussions and any related experiences, affirming their responsibility for personal health and choices."],
@@ -84,6 +93,7 @@ const sections = [
   },
   {
     id: "privacy",
+    icon: "shield",
     title: "9. Privacy and Confidentiality",
     items: [
       ["Protection of Personal Information", "Safeguard the privacy of all attendees, members, and/or staff, ensuring personal information, including digital communications, are managed responsibly and confidentially to the extent possible."],
@@ -91,6 +101,7 @@ const sections = [
   },
   {
     id: "education",
+    icon: "book",
     title: "10. Ongoing Education and Peer Support",
     items: [
       ["Continuous Learning", "Encourage community members to pursue ongoing education to stay informed of best practices, safety protocols, state and federal legal landscapes, and evolving ethical standards."],
@@ -118,9 +129,9 @@ const sections = [
         <aside class="policy-toc" aria-label="Code of conduct contents">
           <p class="eyebrow">Contents</p>
           {sections.map((section) => (
-            <a href={`#${section.id}`}>{section.title}</a>
+            <a data-policy-link href={`#${section.id}`}>{section.title}</a>
           ))}
-          <a href="#transparency">Commitment to Transparency</a>
+          <a data-policy-link href="#transparency">Commitment to Transparency</a>
         </aside>
 
         <div class="policy-content">
@@ -135,8 +146,11 @@ const sections = [
           </ol>
 
           {sections.map((section) => (
-            <section id={section.id}>
-              <h2>{section.title}</h2>
+            <section id={section.id} data-policy-section>
+              <h2 class="policy-section-heading">
+                <Icon name={section.icon} />
+                <span>{section.title}</span>
+              </h2>
               <ul>
                 {section.items.map(([label, body]) => (
                   <li>
@@ -147,8 +161,11 @@ const sections = [
             </section>
           ))}
 
-          <section id="transparency">
-            <h2>Commitment to Transparency and Accountability</h2>
+          <section id="transparency" data-policy-section>
+            <h2 class="policy-section-heading">
+              <Icon name="check" />
+              <span>Commitment to Transparency and Accountability</span>
+            </h2>
             <p>
               All members are required to uphold and reaffirm their commitment to this Code of Ethics. Violations will be reviewed transparently, with the goal of fostering constructive outcomes, safeguarding community values, and, when necessary, implementing corrective measures.
             </p>
@@ -157,4 +174,36 @@ const sections = [
       </div>
     </article>
   </Section>
+  <script>
+    const policyLinks = Array.from(document.querySelectorAll("[data-policy-link]"));
+    const policySections = Array.from(document.querySelectorAll("[data-policy-section]"));
+
+    const setActivePolicyLink = (id: string) => {
+      policyLinks.forEach((link) => {
+        const active = link.getAttribute("href") === `#${id}`;
+        if (active) {
+          link.setAttribute("aria-current", "true");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target.id) {
+          setActivePolicyLink(visible.target.id);
+        }
+      },
+      { rootMargin: "-20% 0px -65% 0px", threshold: [0.1, 0.35, 0.6] },
+    );
+
+    policySections.forEach((section) => observer.observe(section));
+    if (policySections[0]?.id) {
+      setActivePolicyLink(policySections[0].id);
+    }
+  </script>
 </BaseLayout>

@@ -43,6 +43,21 @@ const openGraphImage = new URL(withBase(image), siteOrigin).toString();
     <link rel="shortcut icon" href={withBase("/assets/images/favicon.ico")} />
     <link rel="apple-touch-icon" sizes="180x180" href={withBase("/assets/images/apple-touch-icon.png")} />
     <link rel="manifest" href={withBase("/assets/images/site.webmanifest")} />
+    <script is:inline>
+      (() => {
+        const key = "pskc-theme";
+        const root = document.documentElement;
+        try {
+          const saved = localStorage.getItem(key);
+          const system = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+          root.dataset.theme = saved || system;
+        } catch {
+          root.dataset.theme = "light";
+        }
+      })();
+    </script>
   </head>
   <body>
     <Header />
@@ -50,5 +65,35 @@ const openGraphImage = new URL(withBase(image), siteOrigin).toString();
       <slot />
     </main>
     <Footer />
+    <script is:inline>
+      (() => {
+        const key = "pskc-theme";
+        const root = document.documentElement;
+        const toggles = document.querySelectorAll("[data-theme-toggle]");
+
+        const update = (theme) => {
+          root.dataset.theme = theme;
+          toggles.forEach((toggle) => {
+            toggle.setAttribute("aria-pressed", String(theme === "dark"));
+            toggle.setAttribute(
+              "aria-label",
+              theme === "dark" ? "Switch to light mode" : "Switch to dark mode",
+            );
+          });
+        };
+
+        update(root.dataset.theme || "light");
+
+        toggles.forEach((toggle) => {
+          toggle.addEventListener("click", () => {
+            const next = root.dataset.theme === "dark" ? "light" : "dark";
+            update(next);
+            try {
+              localStorage.setItem(key, next);
+            } catch {}
+          });
+        });
+      })();
+    </script>
   </body>
 </html>

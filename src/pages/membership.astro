@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
 import CardGrid from "../components/CardGrid.astro";
+import Icon from "../components/Icon.astro";
 import Section from "../components/Section.astro";
 import Hero from "../components/Hero.astro";
 import { site } from "../data/site";
@@ -10,19 +11,25 @@ import { withBase } from "../utils/urls";
 const tiers = [
   {
     tier: "Good",
+    icon: "heart",
     title: "Community Supporter",
+    price: "Suggested monthly support: $5-$9",
     body: "A simple monthly way to back PSKC's education, meetups, and community-building work.",
     items: ["Patreon member updates", "Ad-free podcast access", "Support for local programming"],
   },
   {
     tier: "Better",
+    icon: "spark",
     title: "Sustaining Member",
+    price: "Suggested monthly support: $10-$24",
     body: "For members who want to keep PSKC programming steady while receiving deeper member bonuses.",
     items: ["Everything in Good", "Bonus podcast and education notes", "Early community announcements"],
   },
   {
     tier: "Best",
+    icon: "advocacy",
     title: "Movement Builder",
+    price: "Suggested monthly support: $25+",
     body: "A higher-support option for people who want to materially strengthen PSKC's public education work.",
     items: ["Everything in Better", "Expanded member-only updates", "Recognition as a sustaining supporter"],
   },
@@ -52,18 +59,23 @@ const tiers = [
     <CardGrid columns="three">
       {
         tiers.map((tier) => (
-          <article class="feature-card">
+          <article class="tier-card">
+            <div class="card-icon">
+              <Icon name={tier.icon} />
+            </div>
             <p class="eyebrow">{tier.tier}</p>
             <h3>{tier.title}</h3>
+            <p class="tier-price">{tier.price}</p>
             <p>{tier.body}</p>
-            <ul class="mt-5 space-y-2">
+            <ul class="benefit-list">
               {tier.items.map((item) => (
-                <li class="flex gap-2">
-                  <span class="mt-2 size-2 shrink-0 rounded-full bg-[var(--coral)]"></span>
+                <li>
+                  <Icon name="check" />
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
+            <Button href={site.patreon} variant="primary" class="mt-6">Join now</Button>
           </article>
         ))
       }

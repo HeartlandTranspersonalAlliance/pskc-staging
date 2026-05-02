@@ -24,19 +24,26 @@ export const navItems = [
 ];
 
 export const socialLinks = [
-  { label: "Discord", href: "https://discord.gg/ds5NYqqBKU" },
+  { label: "Discord", href: "https://discord.gg/ds5NYqqBKU", icon: "discord" },
   {
     label: "Instagram",
     href: "https://instagram.com/psychedelicsocietyofkansascity",
+    icon: "instagram",
   },
   {
     label: "Facebook",
     href: "https://facebook.com/psychedelicsocietyofkansascity",
+    icon: "facebook",
   },
-  { label: "Bluesky", href: "https://bsky.app/profile/psychedelickc.org" },
-  { label: "Patreon", href: "https://www.patreon.com/c/PSKC" },
+  {
+    label: "Bluesky",
+    href: "https://bsky.app/profile/psychedelickc.org",
+    icon: "bluesky",
+  },
+  { label: "Patreon", href: "https://www.patreon.com/c/PSKC", icon: "patreon" },
   {
     label: "GitHub",
     href: "https://github.com/HeartlandTranspersonalAlliance/pskc-staging",
+    icon: "github",
   },
 ];

@@ -1,5 +1,6 @@
 ---
 import Button from "./Button.astro";
+import Icon from "./Icon.astro";
 import { navItems, site } from "../data/site";
 import { stripBase, withBase } from "../utils/urls";
 
@@ -28,24 +29,37 @@ const isActive = (href: string) =>
       ))}
     </nav>
 
-    <div class="header-action">
-      <Button href={site.discord} variant="primary">Join Discord</Button>
-    </div>
+    <div class="header-controls">
+      <button
+        class="theme-toggle"
+        type="button"
+        data-theme-toggle
+        aria-label="Switch color theme"
+        aria-pressed="false"
+      >
+        <Icon name="sun" class="theme-toggle__sun" />
+        <Icon name="moon" class="theme-toggle__moon" />
+      </button>
 
-    <details class="mobile-menu">
-      <summary aria-label="Open navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </summary>
-      <nav aria-label="Mobile navigation">
-        {navItems.map((item) => (
-          <a class:list={[isActive(item.href) && "active"]} href={withBase(item.href)}>
-            {item.title}
-          </a>
-        ))}
+      <div class="header-action">
         <Button href={site.discord} variant="primary">Join Discord</Button>
-      </nav>
-    </details>
+      </div>
+
+      <details class="mobile-menu">
+        <summary aria-label="Open navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </summary>
+        <nav aria-label="Mobile navigation">
+          {navItems.map((item) => (
+            <a class:list={[isActive(item.href) && "active"]} href={withBase(item.href)}>
+              {item.title}
+            </a>
+          ))}
+          <Button href={site.discord} variant="primary">Join Discord</Button>
+        </nav>
+      </details>
+    </div>
   </div>
 </header>

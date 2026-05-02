@@ -1,8 +1,26 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CardGrid from "../components/CardGrid.astro";
+import Icon from "../components/Icon.astro";
 import Section from "../components/Section.astro";
 import Hero from "../components/Hero.astro";
+
+const resources = [
+  {
+    category: "Integration",
+    icon: "heart",
+    title: "Kansas City Psychedelic Integration Circle",
+    href: "https://kc-psychedelic.com",
+    body: "A confidential community centered around sharing and processing experiences that are outside the ordinary within a supportive and non-judgmental community of peers.",
+  },
+  {
+    category: "Harm Reduction",
+    icon: "firstAid",
+    title: "RaveSafe Inc.",
+    href: "https://ravesafeinc.com",
+    body: "A harm reduction, volunteer-led nonprofit that strives to provide Narcan, fentanyl test strips, and various other supplies to venues in Kansas City and St. Louis.",
+  },
+];
 ---
 
 <BaseLayout
@@ -19,29 +37,27 @@ import Hero from "../components/Hero.astro";
 
   <Section>
     <CardGrid columns="two">
-      <article class="resource-card">
-        <p class="eyebrow">Integration</p>
-        <h2>
-          <a href="https://kc-psychedelic.com" target="_blank" rel="noopener noreferrer">
-            Kansas City Psychedelic Integration Circle
+      {resources.map((resource) => (
+        <article class="resource-card">
+          <div class="resource-card__header">
+            <div class="card-icon">
+              <Icon name={resource.icon} />
+            </div>
+            <div>
+              <p class="eyebrow">{resource.category}</p>
+              <h2>
+                <a href={resource.href} target="_blank" rel="noopener noreferrer">
+                  {resource.title}
+                </a>
+              </h2>
+            </div>
+          </div>
+          <p>{resource.body}</p>
+          <a class="resource-card__link" href={resource.href} target="_blank" rel="noopener noreferrer">
+            Learn more
           </a>
-        </h2>
-        <p>
-          A confidential community centered around sharing and processing experiences that are outside the ordinary within a supportive and non-judgmental community of peers.
-        </p>
-      </article>
-
-      <article class="resource-card">
-        <p class="eyebrow">Harm Reduction</p>
-        <h2>
-          <a href="https://ravesafeinc.com" target="_blank" rel="noopener noreferrer">
-            RaveSafe Inc.
-          </a>
-        </h2>
-        <p>
-          A harm reduction, volunteer-led nonprofit that strives to provide Narcan, fentanyl test strips, and various other supplies to venues in Kansas City and St. Louis.
-        </p>
-      </article>
+        </article>
+      ))}
     </CardGrid>
   </Section>
 </BaseLayout>

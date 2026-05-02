@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import Icon from "./Icon.astro";
 import { withBase } from "../utils/urls";
 
 interface Props {
@@ -12,15 +13,24 @@ const date = post.data.date.toLocaleDateString("en-US", {
   day: "numeric",
   year: "numeric",
 });
+const primaryCategory = post.data.categories[0] ?? "Update";
 ---
 
 <article class="news-card">
-  <p class="eyebrow">{date}</p>
-  <h2>
-    <a href={withBase(`/${post.id}/`)}>{post.data.title}</a>
-  </h2>
-  <p>{post.data.description}</p>
-  <div class="tag-row" aria-label="Post categories">
-    {post.data.categories.map((category) => <span>{category}</span>)}
+  <div class="news-card__mark" aria-hidden="true">
+    <Icon name={primaryCategory === "Advocacy" ? "advocacy" : "policy"} />
+  </div>
+  <div>
+    <p class="eyebrow">{date}</p>
+    <h2>
+      <a href={withBase(`/${post.id}/`)}>{post.data.title}</a>
+    </h2>
+    <p>{post.data.description}</p>
+    <div class="tag-row" aria-label="Post categories">
+      {post.data.categories.map((category) => <span>{category}</span>)}
+    </div>
+    <a class="read-more-link" href={withBase(`/${post.id}/`)} aria-label={`Read more about ${post.data.title}`}>
+      Read more
+    </a>
   </div>
 </article>

@@ -1,9 +1,45 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CardGrid from "../components/CardGrid.astro";
+import Icon from "../components/Icon.astro";
 import Section from "../components/Section.astro";
 import Hero from "../components/Hero.astro";
 import { site } from "../data/site";
+
+const contactCards = [
+  {
+    eyebrow: "Community",
+    icon: "discord",
+    title: "Discord community",
+    body: "Join the PSKC online community for direct conversation and local updates.",
+    href: site.discord,
+    action: "Join our Discord",
+  },
+  {
+    eyebrow: "Follow",
+    icon: "link",
+    title: "Social links hub",
+    body: "Find PSKC social channels, newsletters, and current public links in one place.",
+    href: site.linksHub,
+    action: "Open links hub",
+  },
+  {
+    eyebrow: "Email",
+    icon: "mail",
+    title: "Inquiries",
+    body: "Send questions, press notes, partnership ideas, or accessibility requests by email.",
+    href: `mailto:${site.email}`,
+    action: "Email PSKC",
+  },
+  {
+    eyebrow: "Support",
+    icon: "heart",
+    title: "Donate",
+    body: "Support community education, events, and harm reduction work in Kansas City.",
+    href: site.donate,
+    action: "Donate now",
+  },
+];
 ---
 
 <BaseLayout
@@ -20,39 +56,43 @@ import { site } from "../data/site";
 
   <Section>
     <CardGrid columns="four">
-      <article class="contact-card">
-        <p class="eyebrow">Community</p>
-        <h2>Join our community</h2>
-        <p>
-          Interact with us directly in our online community on
-          <a href={site.discord} target="_blank" rel="noopener noreferrer">Discord</a>.
-        </p>
-      </article>
-      <article class="contact-card">
-        <p class="eyebrow">Follow</p>
-        <h2>Social links</h2>
-        <p>
-          <a href={site.linksHub} target="_blank" rel="noopener noreferrer">Check out our links hub</a>
-          for our newsletter, social media contacts, and more.
-        </p>
-      </article>
-      <article class="contact-card">
-        <p class="eyebrow">Email</p>
-        <h2>Inquiries</h2>
-        <p>
-          Send us an email at
-          <a href={`mailto:${site.email}`}>{site.email}</a>
-          and we will get back to you shortly.
-        </p>
-      </article>
-      <article class="contact-card">
-        <p class="eyebrow">Support</p>
-        <h2>Donate</h2>
-        <p>
-          <a href={site.donate} target="_blank" rel="noopener noreferrer">Donate here</a>
-          to help us advance the psychedelic movement.
-        </p>
-      </article>
+      {contactCards.map((card) => (
+        <article class="contact-card">
+          <div class="contact-card__icon">
+            <Icon name={card.icon} />
+          </div>
+          <p class="eyebrow">{card.eyebrow}</p>
+          <h2>{card.title}</h2>
+          <p>{card.body}</p>
+          <a class="contact-card__link" href={card.href} target={card.href.startsWith("http") ? "_blank" : undefined} rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}>
+            {card.action}
+          </a>
+        </article>
+      ))}
     </CardGrid>
+
+    <form class="contact-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
+      <p class="eyebrow">Enquiry Form</p>
+      <h2 class="contact-form__title">Send a note</h2>
+      <div class="form-grid mt-6">
+        <div class="field">
+          <label for="contact-name">Name</label>
+          <input id="contact-name" name="name" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="contact-email">Email</label>
+          <input id="contact-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field field--wide">
+          <label for="contact-topic">Topic</label>
+          <input id="contact-topic" name="topic" required />
+        </div>
+        <div class="field field--wide">
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" required></textarea>
+        </div>
+      </div>
+      <button class="button button--primary mt-6" type="submit">Send Email</button>
+    </form>
   </Section>
 </BaseLayout>

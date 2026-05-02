@@ -20,7 +20,7 @@ const date = post.data.date.toLocaleDateString("en-US", {
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
-  <section class="prose-shell bg-[var(--paper)] text-[var(--ink)]">
+  <section class="prose-shell">
     <article class="site-container prose-site">
       <p class="eyebrow">{date}</p>
       <h1>{post.data.title}</h1>

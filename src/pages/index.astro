@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
 import CardGrid from "../components/CardGrid.astro";
+import Icon from "../components/Icon.astro";
 import Section from "../components/Section.astro";
 import Hero from "../components/Hero.astro";
 import { site } from "../data/site";
@@ -10,21 +11,25 @@ import { withBase } from "../utils/urls";
 const pillars = [
   {
     label: "Community",
+    icon: "users",
     title: "A welcoming space to connect",
     body: "Monthly gatherings bring newcomers, advocates, artists, educators, researchers, therapists, and curious explorers into thoughtful conversation.",
   },
   {
     label: "Education",
+    icon: "book",
     title: "Evidence-aware public learning",
     body: "PSKC shares reliable information about psychedelic science, policy, culture, history, and clinical applications through events, posts, newsletters, and social channels.",
   },
   {
     label: "Harm Reduction",
+    icon: "firstAid",
     title: "Safety before spectacle",
     body: "Our public programming emphasizes informed decision-making, legal boundaries, accurate risk information, and peer support.",
   },
   {
     label: "Advocacy",
+    icon: "advocacy",
     title: "Kansas City deserves better policy",
     body: "We support compassionate, science-driven approaches to drug use, mental health, and community wellbeing.",
   },
@@ -42,7 +47,7 @@ const pillars = [
     image="/assets/images/kcpcbanner.jpg"
   >
     <Button slot="actions" href={site.discord} variant="primary">Join Our Discord</Button>
-    <Button slot="actions" href="/events/" variant="light">View Events</Button>
+    <Button slot="actions" href="/events/" variant="secondary">View Events</Button>
     <Button slot="actions" href={site.donate} variant="outline">Donate</Button>
   </Hero>
 
@@ -66,6 +71,9 @@ const pillars = [
       {
         pillars.map((pillar) => (
           <article class="feature-card">
+            <div class="card-icon">
+              <Icon name={pillar.icon} />
+            </div>
             <p class="eyebrow">{pillar.label}</p>
             <h3>{pillar.title}</h3>
             <p>{pillar.body}</p>
@@ -107,7 +115,7 @@ const pillars = [
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
           <Button href="/kcpc/" variant="secondary">Conference Details</Button>
-          <Button href="https://luma.com/gkp6hqyd" variant="primary">Register</Button>
+          <Button href="https://luma.com/gkp6hqyd" variant="primary">Registration Details</Button>
         </div>
       </div>
     </div>

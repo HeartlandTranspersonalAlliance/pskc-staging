@@ -1,5 +1,6 @@
 ---
 import Button from "./Button.astro";
+import Icon from "./Icon.astro";
 import { site, socialLinks } from "../data/site";
 ---
 
@@ -9,17 +10,18 @@ import { site, socialLinks } from "../data/site";
       <p class="eyebrow">Stay Connected</p>
       <h2>Community, education, and harm reduction in Kansas City.</h2>
       <div class="footer-actions">
-        <Button href={site.discord} variant="light">Discord</Button>
+        <Button href={site.discord} variant="light">Join Discord</Button>
         <Button href="/membership/" variant="outline">Membership</Button>
         <Button href={site.luma} variant="outline">Events</Button>
         <Button href={site.donate} variant="outline">Donate</Button>
       </div>
     </div>
 
-    <nav aria-label="Social links">
+    <nav class="footer-socials" aria-label="Social links">
       {socialLinks.map((link) => (
-        <a href={link.href} target="_blank" rel="noopener noreferrer">
-          {link.label}
+        <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`Follow PSKC on ${link.label}`}>
+          <Icon name={link.icon} />
+          <span>{link.label}</span>
         </a>
       ))}
     </nav>

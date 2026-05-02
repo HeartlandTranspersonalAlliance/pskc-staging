@@ -17,9 +17,10 @@ const posts = (await getCollection("news")).sort(
     titleLines={["Public", "updates."]}
     intro="Press releases, policy notes, and public education updates from PSKC."
     image="/assets/images/PSKC%20FB_BANNER-01.jpeg"
+    tone="warm"
   />
 
-  <Section>
+  <Section eyebrow="Latest" title="News and advocacy notes">
     <div class="grid gap-5">
       {posts.map((post) => <NewsCard post={post} />)}
     </div>

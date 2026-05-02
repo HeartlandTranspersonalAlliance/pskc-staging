@@ -3,21 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
 import CardGrid from "../components/CardGrid.astro";
 import ImageGallery from "../components/ImageGallery.astro";
+import Icon from "../components/Icon.astro";
 import Section from "../components/Section.astro";
 import Hero from "../components/Hero.astro";
-
-const lineup = [
-  {
-    src: "/assets/images/kcpc/mind.jpg",
-    alt: "The MIND lineup",
-    title: "The MIND track features all of our speakers and panelists.",
-  },
-  {
-    src: "/assets/images/kcpc/body.jpg",
-    alt: "The BODY lineup",
-    title: "The BODY track features workshops, group activities, and ceremonies.",
-  },
-];
+import { withBase } from "../utils/urls";
 
 const visionarySponsors = [
   {
@@ -45,10 +34,68 @@ const trailblazerSponsors = [
 ];
 
 const exploreItems = [
-  "Advancements in psychedelic science",
-  "Harm reduction and psychedelic integration discussion panels",
-  "Updates on psychedelic policy efforts in Missouri",
-  "Intimate group workshops featuring ecstatic dance, meditation, yoga, authentic relating, cacao ceremonies, and more",
+  {
+    icon: "book",
+    title: "Advancements in psychedelic science",
+    body: "Clinical models, mechanisms of action, genetics, nutrition, and safety considerations across the MIND track.",
+  },
+  {
+    icon: "heart",
+    title: "Integration and harm reduction",
+    body: "Panels and talks centered on peer support, practical risk reduction, and equitable access to psychedelic care.",
+  },
+  {
+    icon: "policy",
+    title: "Missouri policy efforts",
+    body: "Local and statewide policy conversations about compassionate, evidence-aware approaches to drug use and care.",
+  },
+  {
+    icon: "spark",
+    title: "Embodied practice",
+    body: "Workshops including ecstatic dance, meditation, yoga, authentic relating, cacao, breathwork, and movement.",
+  },
+];
+
+const mindSchedule = [
+  { time: "9:00 AM - 9:45 AM", title: "Doors Open" },
+  { time: "9:45 AM - 10:00 AM", title: "Opening Remarks and Ceremony", note: "Presented by Mooncat and Twinnflame" },
+  { time: "10:00 AM - 10:30 AM", title: "The Medical Model: Set, Setting, and Soul in Clinical Practice", note: "Presented by Dr. Shawn Lillig" },
+  { time: "10:30 AM - 11:00 AM", title: "Connection, Not Competition: The Inner Cannabis System", note: "Presented by Alice Mangan" },
+  { time: "11:00 AM - 11:15 AM", title: "Healing for All: Building Equitable Access to Psychedelic Care", note: "Presented by Crystal Sudduth" },
+  { time: "11:15 AM - 12:00 PM", title: "Harm Reduction Panel", note: "Presented by Carolyn Shane, April Hatch, Tanto G., and Dale Morgan" },
+  { time: "12:00 PM - 1:00 PM", title: "Lunch Break" },
+  { time: "1:00 PM - 1:05 PM", title: "Welcome Back Remarks", note: "Presented by Mooncat" },
+  { time: "1:05 PM - 1:20 PM", title: "Psychedelic Politics in Missouri", note: "Presented by Eapen Thampy" },
+  { time: "1:20 PM - 1:35 PM", title: "Medicine for Our Protectors: Medicine for Society", note: "Presented by Walter Disney" },
+  { time: "1:35 PM - 2:05 PM", title: "Set, Setting, and Salad? Why Nutrition Matters in Psychedelic Work", note: "Presented by Elizabeth-Jane Oatz" },
+  { time: "2:05 PM - 2:20 PM", title: "Break" },
+  { time: "2:20 PM - 2:50 PM", title: "Psychedelics and Their Mechanisms of Action and an Exploration of Known Potential Medicinal Value", note: "Presented by Matthew Taylor" },
+  { time: "2:50 PM - 3:20 PM", title: "Genes, Enzymes, and Entheogens: The Role of Genetic Testing in Psychedelic Safety and Efficacy", note: "Presented by Rhy Norton" },
+  { time: "3:20 PM - 3:30 PM", title: "Break" },
+  { time: "3:30 PM - 4:00 PM", title: "Entheogenic Circles: A Model for Community-Led Psychedelic Practice", note: "Presented by Beth Day and Joseph Hood" },
+  { time: "4:00 PM - 4:45 PM", title: "Integration Panel", note: "Presented by Ian Cook, Marisa Frazier, Stephanie Zamora, and Dr. Christine Mooncat Ziemer" },
+  { time: "4:45 PM - 5:00 PM", title: "Closing Remarks and Ceremony", note: "Presented by Mooncat and Twinnflame" },
+];
+
+const bodySchedule = [
+  { time: "9:45 AM - 10:00 AM", title: "Opening Remarks and Ceremony", note: "Presented by Mooncat and Twinnflame in the speaker room" },
+  { time: "10:00 AM - 10:30 AM", title: "Mini Ecstatic Dance Experience", note: "With Jenny Severo and DJ Clandestine" },
+  { time: "10:30 AM - 11:00 AM", title: "Meditative Movement with Flow Props", note: "With Laura Lockton" },
+  { time: "11:00 AM - 11:30 AM", title: "Laughter Yoga", note: "With Shawn Lillig" },
+  { time: "11:30 AM - 12:00 PM", title: "Ayahuasca and Other Plant Medicines of The Amazon", note: "With Matt Brake" },
+  { time: "12:00 PM - 1:00 PM", title: "Lunch Break" },
+  { time: "1:00 PM - 1:45 PM", title: "Authentic Relating", note: "With Cameryn Lamare" },
+  { time: "1:45 PM - 2:30 PM", title: "Cacao: The Portal to The Heart", note: "With Rukmani Kaur" },
+  { time: "2:30 PM - 3:00 PM", title: "Accessing Altered States Through Breathwork", note: "With Stephanie Zamora" },
+  { time: "3:00 PM - 3:15 PM", title: "Break" },
+  { time: "3:15 PM - 4:00 PM", title: "Stacking Modalities to Enhance Healing Before, During, and After a Psychedelic Experience", note: "With Dawn Birdsong and Mindy Thomas" },
+  { time: "4:00 PM - 4:30 PM", title: "From Mystical States to Intentional Living: Integrating the Psychedelic Experience through Meditation", note: "With Tim Ely" },
+  { time: "4:45 PM - 5:00 PM", title: "Closing Remarks and Ceremony", note: "Presented by Mooncat and Twinnflame in the speaker room" },
+];
+
+const tracks = [
+  { title: "MIND Track", icon: "book", items: mindSchedule },
+  { title: "BODY Track", icon: "spark", items: bodySchedule },
 ];
 ---
 
@@ -62,33 +109,85 @@ const exploreItems = [
     intro="KCPC brings together psychedelic leaders, practitioners, and advocates from across the nation as well as voices from the Kansas City community."
     image="/assets/images/kcpcbanner.jpg"
   >
-    <Button slot="actions" href="https://luma.com/gkp6hqyd" variant="primary">Register Today</Button>
+    <Button slot="actions" href="https://luma.com/gkp6hqyd" variant="primary">Conference Registration</Button>
+    <Button slot="actions" href="https://forms.gle/kixvX9AdE5NzSDaX8" variant="secondary">
+      Sponsor or Vendor
+    </Button>
   </Hero>
 
   <Section eyebrow="Explore" title="Science, integration, policy, and embodied practice.">
+    <div class="kcpc-cta-strip">
+      <div>
+        <p class="eyebrow">Opportunities</p>
+        <p>
+          Sponsor, vendor, and volunteer applications were requested by <strong>November 1, 2025</strong>. Check the forms for current availability and waitlist details.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <Button href="https://forms.gle/kixvX9AdE5NzSDaX8" variant="primary">
+          Sponsor & Vendor Application
+        </Button>
+        <Button href="https://forms.gle/QVXHRW4WTjT3qoaE9" variant="secondary">
+          Volunteer Waitlist
+        </Button>
+      </div>
+    </div>
+
     <CardGrid columns="four">
       {exploreItems.map((item) => (
-        <article class="feature-card">
+        <article class="feature-card conference-topic">
+          <div class="card-icon">
+            <Icon name={item.icon} />
+          </div>
           <p class="eyebrow">KCPC</p>
-          <h3>{item}</h3>
+          <h3>{item.title}</h3>
+          <p>{item.body}</p>
         </article>
       ))}
     </CardGrid>
   </Section>
 
-  <Section tone="mist" eyebrow="Lineup" title="MIND and BODY tracks">
-    <ImageGallery images={lineup} />
+  <Section tone="mist" eyebrow="Schedule" title="MIND and BODY tracks">
+    <div class="schedule-grid">
+      {tracks.map((track) => (
+        <article class="schedule-track">
+          <div class="schedule-track__header">
+            <h3>{track.title}</h3>
+            <Icon name={track.icon} />
+          </div>
+          <div class="schedule-list">
+            {track.items.map((item) => (
+              <div class="schedule-item">
+                <div class="schedule-time">{item.time}</div>
+                <div>
+                  <div class="schedule-title">{item.title}</div>
+                  {item.note && <div class="schedule-note">{item.note}</div>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+    <div class="schedule-downloads">
+      <a class="button button--secondary" href={withBase("/assets/images/kcpc/mind.jpg")} download>
+        Download MIND schedule image
+      </a>
+      <a class="button button--secondary" href={withBase("/assets/images/kcpc/body.jpg")} download>
+        Download BODY schedule image
+      </a>
+    </div>
   </Section>
 
   <Section eyebrow="Special Thanks" title="KCPC sponsors make this possible.">
     <div class="space-y-12">
       <div>
-        <h2 class="mb-5 font-serif text-3xl font-black tracking-normal">Visionary Sponsor</h2>
-        <ImageGallery images={visionarySponsors} columns="three" />
+        <h2 class="sponsor-heading">Visionary Sponsor</h2>
+        <ImageGallery images={visionarySponsors} columns="three" variant="logo" />
       </div>
       <div>
-        <h2 class="mb-5 font-serif text-3xl font-black tracking-normal">Trailblazer Sponsors</h2>
-        <ImageGallery images={trailblazerSponsors} />
+        <h2 class="sponsor-heading">Trailblazer Sponsors</h2>
+        <ImageGallery images={trailblazerSponsors} variant="logo" />
       </div>
     </div>
   </Section>
@@ -96,7 +195,7 @@ const exploreItems = [
   <Section tone="ink" eyebrow="Help Out" title="Volunteers, sponsors, and vendors">
     <div class="split-band">
       <p class="text-xl leading-relaxed text-[var(--paper)]/85">
-        Volunteers, Sponsors, and Vendors are encouraged to fill out their applications by <strong>November 1st</strong>.
+        Volunteers, sponsors, and vendors were encouraged to submit applications by <strong>November 1, 2025</strong>. Check the linked forms for current availability.
       </p>
       <div class="flex flex-wrap gap-3">
         <Button href="https://forms.gle/kixvX9AdE5NzSDaX8" variant="primary">

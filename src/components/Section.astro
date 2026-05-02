@@ -15,14 +15,9 @@ const {
   class: className = "",
 } = Astro.props;
 
-const tones = {
-  paper: "bg-[var(--paper)] text-[var(--ink)]",
-  ink: "bg-[var(--ink)] text-[var(--paper)]",
-  mist: "bg-[var(--mist)] text-[var(--ink)]",
-};
 ---
 
-<section class:list={["section-band", tones[tone], className]}>
+<section class:list={["section-band", `section-tone-${tone}`, className]}>
   <div class="site-container">
     {(eyebrow || title || intro) && (
       <div class="section-heading">

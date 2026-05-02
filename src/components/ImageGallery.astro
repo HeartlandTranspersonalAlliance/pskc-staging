@@ -11,16 +11,17 @@ interface GalleryImage {
 interface Props {
   images: GalleryImage[];
   columns?: "two" | "three";
+  variant?: "photo" | "logo";
 }
 
-const { images, columns = "two" } = Astro.props;
+const { images, columns = "two", variant = "photo" } = Astro.props;
 const columnClasses = {
   two: "md:grid-cols-2",
   three: "md:grid-cols-2 xl:grid-cols-3",
 };
 ---
 
-<div class:list={["image-gallery", columnClasses[columns]]}>
+<div class:list={["image-gallery", `image-gallery--${variant}`, columnClasses[columns]]}>
   {
     images.map((image) => {
       const content = (
