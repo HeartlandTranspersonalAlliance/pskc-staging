@@ -58,17 +58,17 @@ const contactCards = [
   <Section>
     <CardGrid columns="four">
       {contactCards.map((card) => (
-        <article class="contact-card">
+        <a class="contact-card" href={card.href} target={card.href.startsWith("http") ? "_blank" : undefined} rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}>
           <div class="contact-card__icon">
             <Icon name={card.icon} />
           </div>
           <p class="eyebrow">{card.eyebrow}</p>
           <h2>{card.title}</h2>
           <p>{card.body}</p>
-          <a class="contact-card__link" href={card.href} target={card.href.startsWith("http") ? "_blank" : undefined} rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}>
+          <span class="contact-card__link">
             {card.action}
-          </a>
-        </article>
+          </span>
+        </a>
       ))}
     </CardGrid>
 

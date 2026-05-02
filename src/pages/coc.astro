@@ -127,13 +127,15 @@ const sections = [
   <Section>
     <article class="prose-site policy-layout">
       <div class="policy-grid">
-        <aside class="policy-toc" aria-label="Code of conduct contents">
-          <p class="eyebrow">Contents</p>
+        <details class="policy-toc" aria-label="Code of conduct contents" open>
+          <summary>
+            <span class="eyebrow">Contents</span>
+          </summary>
           {sections.map((section) => (
             <a data-policy-link href={`#${section.id}`}>{section.title}</a>
           ))}
           <a data-policy-link href="#transparency">Commitment to Transparency</a>
-        </aside>
+        </details>
 
         <div class="policy-content">
           <h1>Code of Conduct</h1>

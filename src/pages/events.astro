@@ -26,32 +26,32 @@ import { site } from "../data/site";
 
   <Section eyebrow="Calendar" title="Upcoming events">
     <div class="event-mini-grid" aria-label="PSKC event focus areas">
-      <article class="event-mini-card">
+      <a class="event-mini-card" href={site.luma} target="_blank" rel="noopener noreferrer">
         <Icon name="calendar" />
         <div>
           <h3 class="font-black">Monthly meetups</h3>
           <p>Public talks, panels, and peer conversation around psychedelic education and community care.</p>
         </div>
-      </article>
-      <article class="event-mini-card">
+      </a>
+      <a class="event-mini-card" href={site.luma} target="_blank" rel="noopener noreferrer">
         <Icon name="users" />
         <div>
           <h3 class="font-black">Community gatherings</h3>
           <p>Low-barrier ways to meet local organizers, practitioners, advocates, artists, and curious newcomers.</p>
         </div>
-      </article>
+      </a>
     </div>
 
     <div class="example-event-list" aria-label="Example event listings">
       {exampleEvents.map((event) => (
-        <article class="event-list-card">
+        <a class="event-list-card" href={site.luma} target="_blank" rel="noopener noreferrer" aria-label={`View PSKC events for ${event.title}`}>
           <Icon name={event.icon} />
           <div>
             <p class="eyebrow">{event.label}</p>
             <h3>{event.title}</h3>
             <p>{event.body}</p>
           </div>
-        </article>
+        </a>
       ))}
     </div>
 

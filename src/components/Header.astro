@@ -36,6 +36,7 @@ const isActive = (href: string) =>
         data-theme-toggle
         aria-label="Switch color theme"
         aria-pressed="false"
+        title="Toggle dark mode"
       >
         <Icon name="sun" class="theme-toggle__sun" />
         <Icon name="moon" class="theme-toggle__moon" />
@@ -46,10 +47,10 @@ const isActive = (href: string) =>
       </div>
 
       <details class="mobile-menu">
-        <summary aria-label="Open navigation">
-          <span></span>
-          <span></span>
-          <span></span>
+        <summary aria-label="Open navigation" title="Open navigation">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
         </summary>
         <nav aria-label="Mobile navigation">
           {navItems.map((item) => (

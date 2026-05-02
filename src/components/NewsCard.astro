@@ -16,7 +16,7 @@ const date = post.data.date.toLocaleDateString("en-US", {
 const primaryCategory = post.data.categories[0] ?? "Update";
 ---
 
-<article class="news-card">
+<article class="news-card" data-news-card data-categories={post.data.categories.join("|")}>
   {
     post.data.image ? (
       <img

@@ -13,7 +13,8 @@ const tiers = [
     tier: "Good",
     icon: "heart",
     title: "Community Supporter",
-    price: "Suggested monthly support: $5-$9",
+    price: "$5-$9/mo",
+    priceNote: "Suggested monthly support",
     body: "A simple monthly way to back PSKC's education, meetups, and community-building work.",
     items: ["Patreon member updates", "Ad-free podcast access", "Support for local programming"],
   },
@@ -21,7 +22,8 @@ const tiers = [
     tier: "Better",
     icon: "spark",
     title: "Sustaining Member",
-    price: "Suggested monthly support: $10-$24",
+    price: "$10-$24/mo",
+    priceNote: "Suggested monthly support",
     body: "For members who want to keep PSKC programming steady while receiving deeper member bonuses.",
     items: ["Everything in Good", "Bonus podcast and education notes", "Early community announcements"],
   },
@@ -29,7 +31,8 @@ const tiers = [
     tier: "Best",
     icon: "advocacy",
     title: "Movement Builder",
-    price: "Suggested monthly support: $25+",
+    price: "$25+/mo",
+    priceNote: "Suggested monthly support",
     body: "A higher-support option for people who want to materially strengthen PSKC's public education work.",
     items: ["Everything in Better", "Expanded member-only updates", "Recognition as a sustaining supporter"],
   },
@@ -66,7 +69,10 @@ const tiers = [
             </div>
             <p class="eyebrow">{tier.tier}</p>
             <h3>{tier.title}</h3>
-            <p class="tier-price">{tier.price}</p>
+            <p class="tier-price">
+              {tier.price}
+              <span>{tier.priceNote}</span>
+            </p>
             <p>{tier.body}</p>
             <ul class="benefit-list">
               {tier.items.map((item) => (

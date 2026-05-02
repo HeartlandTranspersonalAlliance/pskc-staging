@@ -79,6 +79,10 @@ const openGraphImage = new URL(withBase(image), siteOrigin).toString();
               "aria-label",
               theme === "dark" ? "Switch to light mode" : "Switch to dark mode",
             );
+            toggle.setAttribute(
+              "title",
+              theme === "dark" ? "Switch to light mode" : "Switch to dark mode",
+            );
           });
         };
 

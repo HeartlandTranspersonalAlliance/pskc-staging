@@ -94,21 +94,19 @@ const examplePhotos = [
   </Section>
 
   <Section tone="mist" eyebrow="Since 2024" title="A young organization with a practical local focus.">
-    <div class="split-band">
-      <div class="split-media">
-        <img src={withBase("/assets/images/bio-photo.jpg")} alt="Colorful artwork representing reflection, community care, and Kansas landscapes" loading="lazy" />
-      </div>
-      <div class="timeline-list">
-        {timeline.map((item) => (
-          <article class="timeline-card">
-            <div class="timeline-year">{item.year}</div>
-            <div>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </div>
-          </article>
-        ))}
-      </div>
+    <div class="split-media timeline-visual">
+      <img src={withBase("/assets/images/bio-photo.jpg")} alt="Colorful artwork representing reflection, community care, and Kansas landscapes" loading="lazy" />
+    </div>
+    <div class="timeline-list">
+      {timeline.map((item) => (
+        <article class="timeline-card">
+          <div class="timeline-year">{item.year}</div>
+          <div>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        </article>
+      ))}
     </div>
   </Section>
 

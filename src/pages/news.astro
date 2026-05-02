@@ -8,6 +8,7 @@ import Hero from "../components/Hero.astro";
 const posts = (await getCollection("news")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+const categories = Array.from(new Set(posts.flatMap((post) => post.data.categories))).sort();
 ---
 
 <BaseLayout title="News" description="News, press releases, and advocacy updates from the Psychedelic Society of Kansas City.">
@@ -22,8 +23,29 @@ const posts = (await getCollection("news")).sort(
   />
 
   <Section eyebrow="Latest" title="News and advocacy notes">
+    <div class="filter-row" aria-label="Filter news by category">
+      <button class="active" type="button" data-news-filter="all">All</button>
+      {categories.map((category) => (
+        <button type="button" data-news-filter={category}>{category}</button>
+      ))}
+    </div>
     <div class="grid gap-5">
       {posts.map((post) => <NewsCard post={post} />)}
     </div>
   </Section>
+  <script>
+    const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-news-filter]"));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-news-card]"));
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selected = button.dataset.newsFilter || "all";
+        filterButtons.forEach((item) => item.classList.toggle("active", item === button));
+        cards.forEach((card) => {
+          const categories = (card.dataset.categories || "").split("|");
+          card.hidden = selected !== "all" && !categories.includes(selected);
+        });
+      });
+    });
+  </script>
 </BaseLayout>

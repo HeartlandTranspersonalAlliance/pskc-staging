@@ -21,6 +21,7 @@ const date = post.data.date.toLocaleDateString("en-US", {
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} image={post.data.image}>
+  <div class="reading-progress" data-reading-progress aria-hidden="true"></div>
   <section class="prose-shell">
     <article class="site-container prose-site">
       <p class="eyebrow">{date}</p>
@@ -39,4 +40,17 @@ const date = post.data.date.toLocaleDateString("en-US", {
       <Content />
     </article>
   </section>
+  <script>
+    const progress = document.querySelector<HTMLElement>("[data-reading-progress]");
+    const updateReadingProgress = () => {
+      if (!progress) return;
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const value = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+      progress.style.setProperty("--reading-progress", `${value * 100}%`);
+    };
+
+    updateReadingProgress();
+    window.addEventListener("scroll", updateReadingProgress, { passive: true });
+    window.addEventListener("resize", updateReadingProgress);
+  </script>
 </BaseLayout>
