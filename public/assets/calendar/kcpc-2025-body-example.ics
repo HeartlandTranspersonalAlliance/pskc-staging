@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//PSKC//KCPC 2025 Example BODY Schedule//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:KCPC 2025 BODY Track Example
+BEGIN:VEVENT
+UID:kcpc-2025-body-example@psychedelickc.org
+DTSTAMP:20260502T000000Z
+DTSTART:20251108T094500
+DTEND:20251108T170000
+SUMMARY:KCPC 2025 BODY Track Example Schedule
+DESCRIPTION:Example calendar asset for staging. Replace date and details with the official KCPC export before public use.
+LOCATION:Kansas City, Missouri
+END:VEVENT
+END:VCALENDAR

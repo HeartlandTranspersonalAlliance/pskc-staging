@@ -17,9 +17,20 @@ const primaryCategory = post.data.categories[0] ?? "Update";
 ---
 
 <article class="news-card">
-  <div class="news-card__mark" aria-hidden="true">
-    <Icon name={primaryCategory === "Advocacy" ? "advocacy" : "policy"} />
-  </div>
+  {
+    post.data.image ? (
+      <img
+        class="news-card__thumb"
+        src={withBase(post.data.image)}
+        alt={post.data.imageAlt ?? ""}
+        loading="lazy"
+      />
+    ) : (
+      <div class="news-card__mark" aria-hidden="true">
+        <Icon name={primaryCategory === "Advocacy" ? "advocacy" : "policy"} />
+      </div>
+    )
+  }
   <div>
     <p class="eyebrow">{date}</p>
     <h2>

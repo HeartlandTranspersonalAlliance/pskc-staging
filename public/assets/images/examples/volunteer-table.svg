@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" role="img">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff9ed"/>
+      <stop offset=".6" stop-color="#e5ece3"/>
+      <stop offset="1" stop-color="#efc75e"/>
+    </linearGradient>
+    <pattern id="dots" width="34" height="34" patternUnits="userSpaceOnUse">
+      <circle cx="6" cy="6" r="2" fill="#214334" opacity=".12"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="820" fill="url(#bg)"/>
+  <rect width="1200" height="820" fill="url(#dots)"/>
+  <rect x="150" y="524" width="900" height="92" rx="34" fill="#214334"/>
+  <rect x="228" y="616" width="62" height="130" rx="20" fill="#101711"/>
+  <rect x="910" y="616" width="62" height="130" rx="20" fill="#101711"/>
+  <g stroke="#101711" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <g fill="#d95f43">
+      <circle cx="278" cy="415" r="50"/>
+      <path d="M220 544c15-77 38-110 69-110s53 33 69 110z"/>
+    </g>
+    <g fill="#efc75e">
+      <circle cx="462" cy="374" r="52"/>
+      <path d="M400 544c16-93 40-134 72-134s56 41 72 134z"/>
+    </g>
+    <g fill="#5fb7ad">
+      <circle cx="645" cy="382" r="54"/>
+      <path d="M580 544c18-88 42-127 75-127s58 39 75 127z"/>
+    </g>
+    <g fill="#6f9a61">
+      <circle cx="832" cy="419" r="50"/>
+      <path d="M774 544c15-75 38-108 69-108s53 33 69 108z"/>
+    </g>
+  </g>
+  <g fill="#f7f1df" stroke="#101711" stroke-width="7" stroke-linejoin="round">
+    <rect x="365" y="548" width="90" height="44" rx="10"/>
+    <rect x="493" y="543" width="118" height="50" rx="10"/>
+    <rect x="650" y="548" width="92" height="44" rx="10"/>
+    <path d="M802 546h80v48h-80z"/>
+  </g>
+  <g fill="none" stroke="#214334" stroke-width="9" stroke-linecap="round">
+    <path d="M310 220c82-84 190-126 322-126 116 0 210 33 282 98"/>
+    <path d="M356 257c64-54 145-82 244-82 98 0 179 27 244 80"/>
+  </g>
+  <circle cx="600" cy="174" r="42" fill="#efc75e" stroke="#101711" stroke-width="8"/>
+</svg>

@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../utils/urls";
 
 export async function getStaticPaths() {
   const posts = await getCollection("news");
@@ -19,11 +20,19 @@ const date = post.data.date.toLocaleDateString("en-US", {
 });
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout title={post.data.title} description={post.data.description} image={post.data.image}>
   <section class="prose-shell">
     <article class="site-container prose-site">
       <p class="eyebrow">{date}</p>
       <h1>{post.data.title}</h1>
+      {post.data.image && (
+        <img
+          class="post-hero-image"
+          src={withBase(post.data.image)}
+          alt={post.data.imageAlt ?? ""}
+          loading="eager"
+        />
+      )}
       <div class="tag-row" aria-label="Post categories">
         {post.data.categories.map((category) => <span>{category}</span>)}
       </div>

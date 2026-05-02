@@ -518,18 +518,14 @@ html[data-theme="dark"] .theme-toggle__moon {
   inset: 0;
   background-image:
     linear-gradient(90deg, var(--hero-start), var(--hero-mid) 46%, var(--hero-end)),
-    linear-gradient(0deg, var(--hero-floor), rgba(16, 23, 17, 0.04) 58%),
-    var(--hero-image);
-  background-position: center;
-  background-size: cover;
-  transform: scale(1.02);
+    linear-gradient(0deg, var(--hero-floor), rgba(16, 23, 17, 0.04) 58%);
+  z-index: 1;
 }
 
 .hero-shell--warm::before {
   background-image:
     linear-gradient(115deg, rgba(33, 67, 52, 0.86), rgba(239, 199, 94, 0.5) 52%, rgba(217, 95, 67, 0.28)),
-    linear-gradient(0deg, rgba(16, 23, 17, 0.78), rgba(16, 23, 17, 0.08) 56%),
-    var(--hero-image);
+    linear-gradient(0deg, rgba(16, 23, 17, 0.78), rgba(16, 23, 17, 0.08) 56%);
 }
 
 .hero-shell::after {
@@ -540,11 +536,22 @@ html[data-theme="dark"] .theme-toggle__moon {
   background-size: 100% 28px;
   mix-blend-mode: soft-light;
   pointer-events: none;
+  z-index: 1;
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   padding-block: 136px 72px;
 }
 
@@ -904,9 +911,28 @@ html[data-theme="dark"] .policy-toc a {
 
 .news-card {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: minmax(150px, 220px) minmax(0, 1fr);
   gap: 20px;
   padding: 28px;
+}
+
+.news-card__thumb {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--surface-strong);
+}
+
+.post-hero-image {
+  width: 100%;
+  margin-block: 1.4rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  aspect-ratio: 5 / 3;
+  object-fit: cover;
+  background: var(--surface-strong);
 }
 
 .calendar-panel {
@@ -927,6 +953,12 @@ html[data-theme="dark"] .policy-toc a {
   margin-bottom: 24px;
 }
 
+.example-event-list {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
 .event-mini-card {
   display: flex;
   gap: 14px;
@@ -941,6 +973,34 @@ html[data-theme="dark"] .policy-toc a {
   margin-top: 4px;
   color: var(--coral);
   font-size: 1.35rem;
+}
+
+.event-list-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  background: var(--surface);
+}
+
+.event-list-card > .icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-content: center;
+  border-radius: 999px;
+  background: rgba(239, 199, 94, 0.18);
+  color: var(--moss);
+  font-size: 1.25rem;
+}
+
+.event-list-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.1;
 }
 
 .resource-card__header,

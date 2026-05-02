@@ -2,6 +2,8 @@
 title: 'PSKC Urges Kansas City Council to Reject "Gas Station Drug Ordinance"'
 date: 2025-12-08
 description: "PSKC calls on the Kansas City Council to reject Ordinance 251028 and pursue evidence-based harm reduction, regulation, and public input instead."
+image: "/assets/images/news/gas-station-drug-ordinance-thumb.svg"
+imageAlt: "Illustrated Kansas City skyline with a policy checklist for a PSKC advocacy update"
 categories:
   - Press Release
   - Advocacy

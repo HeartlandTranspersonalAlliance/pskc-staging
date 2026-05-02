@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CardGrid from "../components/CardGrid.astro";
 import Icon from "../components/Icon.astro";
+import ImageGallery from "../components/ImageGallery.astro";
 import Section from "../components/Section.astro";
 import Hero from "../components/Hero.astro";
 import { withBase } from "../utils/urls";
@@ -44,6 +45,24 @@ const timeline = [
     body: "Monthly meetups, public updates, and member support keep the society focused on education, harm reduction, and care.",
   },
 ];
+
+const examplePhotos = [
+  {
+    src: "/assets/images/examples/community-gathering.svg",
+    alt: "Example illustration of a PSKC community gathering around a table with the Kansas City skyline",
+    title: "Example community gathering visual",
+  },
+  {
+    src: "/assets/images/examples/volunteer-table.svg",
+    alt: "Example illustration of volunteers organizing materials at a PSKC resource table",
+    title: "Example volunteer table visual",
+  },
+  {
+    src: "/assets/images/examples/team-planning.svg",
+    alt: "Example illustration of a PSKC planning session with a shared board",
+    title: "Example team planning visual",
+  },
+];
 ---
 
 <BaseLayout
@@ -56,6 +75,7 @@ const timeline = [
     titleLines={["Who we are."]}
     intro="A community-driven organization dedicated to education, dialogue, and connection around the transformative potential of psychedelics."
     image="/assets/images/PSKC%20FB_BANNER-01.jpeg"
+    imageAlt="Kansas City skyline illustration with PSKC geometric artwork"
   />
 
   <Section>
@@ -90,6 +110,10 @@ const timeline = [
         ))}
       </div>
     </div>
+  </Section>
+
+  <Section eyebrow="Example Visuals" title="Replaceable assets for people-centered storytelling.">
+    <ImageGallery images={examplePhotos} columns="three" />
   </Section>
 
   <Section eyebrow="What We Do" title="Practical ways PSKC gathers people.">

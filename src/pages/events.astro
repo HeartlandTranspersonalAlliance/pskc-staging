@@ -4,6 +4,7 @@ import Button from "../components/Button.astro";
 import Icon from "../components/Icon.astro";
 import Section from "../components/Section.astro";
 import Hero from "../components/Hero.astro";
+import { exampleEvents } from "../data/exampleEvents";
 import { site } from "../data/site";
 ---
 
@@ -17,6 +18,7 @@ import { site } from "../data/site";
     titleLines={["Upcoming", "gatherings."]}
     intro="PSKC hosts public education events, monthly meetups, and community gatherings across Kansas City."
     image="/assets/images/kcpcbanner.jpg"
+    imageAlt="Abstract KCPC mandala artwork used for PSKC event pages"
   >
     <Button slot="actions" href={site.luma} variant="primary">Open Lu.ma Calendar</Button>
     <Button slot="actions" href={site.luma} variant="secondary">Subscribe on Lu.ma</Button>
@@ -38,6 +40,19 @@ import { site } from "../data/site";
           <p>Low-barrier ways to meet local organizers, practitioners, advocates, artists, and curious newcomers.</p>
         </div>
       </article>
+    </div>
+
+    <div class="example-event-list" aria-label="Example event listings">
+      {exampleEvents.map((event) => (
+        <article class="event-list-card">
+          <Icon name={event.icon} />
+          <div>
+            <p class="eyebrow">{event.label}</p>
+            <h3>{event.title}</h3>
+            <p>{event.body}</p>
+          </div>
+        </article>
+      ))}
     </div>
 
     <div class="calendar-panel">

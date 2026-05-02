@@ -6,6 +6,7 @@ interface Props {
   titleLines: string[];
   intro?: string;
   image: string;
+  imageAlt?: string;
   compact?: boolean;
   tone?: "default" | "warm";
 }
@@ -15,6 +16,7 @@ const {
   titleLines,
   intro,
   image,
+  imageAlt = "",
   compact = false,
   tone = "default",
 } = Astro.props;
@@ -27,8 +29,8 @@ const resolvedImage = withBase(image);
     compact && "hero-shell--compact",
     tone !== "default" && `hero-shell--${tone}`,
   ]}
-  style={`--hero-image: url("${resolvedImage}")`}
 >
+  <img class="hero-image" src={resolvedImage} alt={imageAlt} loading={compact ? "lazy" : "eager"} decoding="async" />
   <div class="site-container hero-content">
     {eyebrow && <p class="eyebrow hero-eyebrow">{eyebrow}</p>}
     <h1>
